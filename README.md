@@ -4,8 +4,8 @@ Ohjelma, joka opettaa neuroverkon tunnistamaan kuvia backpropagation-algoritmin 
 
 ## Dokumentaatio
 
- - ![Aihemäärittely](https://github.com/SimoKorkolainen/ImageRecognition/blob/master/dokumentaatio/Aihemaarittely.md)
- - ![Tuntikirjanpito](https://github.com/SimoKorkolainen/ImageRecognition/blob/master/dokumentaatio/tuntikirjanpito.md)
+ - [Aihemäärittely](https://github.com/SimoKorkolainen/ImageRecognition/blob/master/dokumentaatio/Aihemaarittely.md)
+ - [Tuntikirjanpito](https://github.com/SimoKorkolainen/ImageRecognition/blob/master/dokumentaatio/tuntikirjanpito.md)
  - 
  
 ### Viikkoraportit

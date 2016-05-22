@@ -2,6 +2,6 @@
 
 Ohjelma, joka opettaa neuroverkon tunnistamaan kuvia backpropagation-algoritmin avulla
 
-# Dokumentaatio
+## Dokumentaatio
 
  - Aiheen määrittely

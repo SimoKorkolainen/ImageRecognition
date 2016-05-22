@@ -17,7 +17,7 @@ Ohjelma, joka opettaa neuroverkon tunnistamaan kuvia backpropagation-algoritmin 
 
 ### Käytetty data
 - [Cifar](https://www.cs.toronto.edu/~kriz/cifar.html)
--[Mnist](http://yann.lecun.com/exdb/mnist/)
+- [Mnist](http://yann.lecun.com/exdb/mnist/)
  
 #### Huomiotavaa
 

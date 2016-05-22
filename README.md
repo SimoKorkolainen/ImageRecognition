@@ -9,4 +9,4 @@ Ohjelma, joka opettaa neuroverkon tunnistamaan kuvia backpropagation-algoritmin 
  
 #### Huomiotavaa
 
-Repositorio sisältää isohkoja datatiedostoja, joten repositorion kannattaa ladata vain, kun saatavilla on hyvä nettiyhteys.
+Repositorio sisältää isohkoja datatiedostoja.

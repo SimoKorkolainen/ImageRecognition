@@ -2,6 +2,10 @@
 
 Ohjelma, joka opettaa neuroverkon tunnistamaan kuvia backpropagation-algoritmin avulla.
 
+
+## Data
+- [Cifar](https://www.cs.toronto.edu/~kriz/cifar.html)
+
 ## Dokumentaatio
 
  - [Aihemäärittely](https://github.com/SimoKorkolainen/ImageRecognition/blob/master/dokumentaatio/Aihemaarittely.md)

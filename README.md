@@ -16,8 +16,8 @@ Ohjelma, joka opettaa neuroverkon tunnistamaan kuvia backpropagation-algoritmin 
 
 
 ### Käytetty data
-- [CIFAR Kuvia mm. koirista ja autoista](https://www.cs.toronto.edu/~kriz/cifar.html)
-- [MNIST Kuvia käsinkirjoitetuista kirjaimista](http://yann.lecun.com/exdb/mnist/)
+- [CIFAR](https://www.cs.toronto.edu/~kriz/cifar.html) Kuvia mm. koirista ja autoista
+- [MNIST](http://yann.lecun.com/exdb/mnist/) Kuvia käsinkirjoitetuista kirjaimista
  
 #### Huomiotavaa
 

@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package imagerecognition.functions;
 
 /**
  *
- * @author simokork
+ * @author Simo
  */
-public interface Differentiable {
-    public Matrix jacobian(Vector x);
+public interface SimpleDifferentiable {
+    public double getDerivative(double x);
 }

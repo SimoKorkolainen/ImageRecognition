@@ -9,7 +9,7 @@ package imagerecognition.functions;
  *
  * @author Simo
  */
-public abstract class ActivationFunction implements Differentiable {
+public abstract class ActivationFunction implements SimpleDifferentiable {
     private String name;
 
     public ActivationFunction(String name) {

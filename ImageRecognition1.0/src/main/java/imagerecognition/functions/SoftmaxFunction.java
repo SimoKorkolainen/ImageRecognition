@@ -1,0 +1,55 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package imagerecognition.functions;
+
+/**
+ *
+ * @author simokork
+ */
+public class SoftmaxFunction extends NeuronLayerFunction {
+
+    
+    
+    public SoftmaxFunction(double weightRandomness, int inputSize, int outputSize) {
+        super(new ExponentialFunction(), weightRandomness, inputSize, outputSize);
+        
+    
+    }
+    
+    
+    @Override
+    public Vector value(Vector x) {
+    
+        Vector value = super.value(x);
+        
+        return value.times(1.0 / value.sum());
+    
+    }
+    
+    @Override
+    public Matrix jacobian(Vector x) {
+        
+        Vector value = value(x);
+        
+        Matrix dy = super.jacobian(x);
+        
+        Matrix dySum = dy.columnSum();
+        
+        Matrix prod = value.product(dySum);
+        
+        prod = prod.times(-1);
+        
+        Matrix sum = prod.plus(dy);
+        
+        
+        return sum.times(1.0 / value.sum()); //not ready?
+    
+    }
+    
+
+    
+}

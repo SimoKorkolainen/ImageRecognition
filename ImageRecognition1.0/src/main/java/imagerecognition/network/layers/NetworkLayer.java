@@ -5,39 +5,45 @@
  */
 package imagerecognition.network.layers;
 
-import imagerecognition.functions.LayerFunction;
 import imagerecognition.functions.ActivationFunction;
+import imagerecognition.functions.NeuronLayerFunction;
+import imagerecognition.functions.Vector;
 
 /**
  *
  * @author Simo
  */
-public abstract class NetworkLayer {
-    private LayerFunction[] functions;
-    private double values[];
+public class NetworkLayer {
+    private NeuronLayerFunction function;
+    private Vector value;
 
     public NetworkLayer(int size) {
-        functions = new LayerFunction[size];
-        values = new double[size];
+        value = Vector.zero(size);
     }
+    
+    
+    public NetworkLayer(NeuronLayerFunction function) {
+        this(function.outputSize());
+        this.function = function;
+    }
+    
+    
     
     public void updateLayer(NetworkLayer input) {
-        double in[] = input.getValues();
-        for (int i = 0; i < functions.length; i++) {
-            values[i] = functions[i].value(in);
+        if (function == null) {
+            return;
         }
-    
+        
+        value = function.value(input.getValue());
     }
 
-    public double[] getValues() {
-        return values;
+    public Vector getValue() {
+        return value;
     }
 
-    public void setValues(double[] values) {
-        this.values = values;
+    public void setValue(Vector value) {
+        this.value = value;
     }
 
-    
-    
     
 }

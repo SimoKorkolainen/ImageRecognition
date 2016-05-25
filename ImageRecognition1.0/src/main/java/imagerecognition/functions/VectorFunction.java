@@ -10,6 +10,11 @@ package imagerecognition.functions;
  *
  * @author simokork
  */
-public interface Differentiable {
-    public Matrix jacobian(Vector x);
+public abstract class VectorFunction {
+    
+    public abstract Vector value(Vector x);
+    
+    public abstract int inputSize();
+    
+    public abstract int outputSize();
 }

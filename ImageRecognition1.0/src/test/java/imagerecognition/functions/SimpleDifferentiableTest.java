@@ -17,10 +17,10 @@ import static org.junit.Assert.*;
  *
  * @author Simo
  */
-public class DifferentiableTest {
+public class SimpleDifferentiableTest {
     private static final double ERROR_MARGIN = 0.00001;
     private static final double EPSILON = 0.000001;
-    public DifferentiableTest() {
+    public SimpleDifferentiableTest() {
     }
     
     @BeforeClass

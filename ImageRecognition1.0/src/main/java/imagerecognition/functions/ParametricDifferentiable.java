@@ -10,6 +10,6 @@ package imagerecognition.functions;
  *
  * @author simokork
  */
-public interface Differentiable {
-    public Matrix jacobian(Vector x);
+public interface ParametricDifferentiable {
+    public Matrix parameterJacobian(Vector x);
 }

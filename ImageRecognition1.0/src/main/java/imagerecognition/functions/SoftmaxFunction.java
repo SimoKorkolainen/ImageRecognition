@@ -6,9 +6,15 @@
 
 package imagerecognition.functions;
 
+import imagerecognition.math.Vector;
+import imagerecognition.math.Matrix;
+import imagerecognition.functions.activation.ExponentialFunction;
+
 /**
- *
- * @author simokork
+ * Softmax-funktiota käytettään luokitteluun. Softmax-funktio on yleensä 
+ * luokitteluun käytettävän neuroverkon viimeinen kerros.
+ * Softmax-funktion kuva-alkion komponenttien arvoden summa on yksi 
+ * ja kaikkien komponenttien arvot ovat positiivia.
  */
 public class SoftmaxFunction extends NeuronLayerFunction {
 
@@ -19,7 +25,6 @@ public class SoftmaxFunction extends NeuronLayerFunction {
         
     
     }
-    
     
     @Override
     public Vector value(Vector x) {

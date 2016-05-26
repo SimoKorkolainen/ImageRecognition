@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package imagerecognition.functions;
+package imagerecognition.functions.activation;
 
 /**
  *
- * @author Simo
+ * SoftplusFunction on eräs aktivaatiofunktiotyyppi. 
+ * Kts. https://en.wikipedia.org/wiki/Rectifier_(neural_networks)
  */
 public class SoftplusFunction extends ActivationFunction {
 
@@ -25,6 +26,11 @@ public class SoftplusFunction extends ActivationFunction {
         return Math.max(x, 0) + Math.log1p(Math.exp(-Math.abs(x)));
     }
    
+    /**
+     * Metodi palauttaa funktion derivaatan pisteessä
+     * @param x piste
+     * @return derivaatta pisteessä
+     */
     @Override
     public double getDerivative(double x) {
         return 1.0 / (Math.exp(-x) + 1);

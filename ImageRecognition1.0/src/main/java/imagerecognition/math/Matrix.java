@@ -4,23 +4,32 @@
  * and open the template in the editor.
  */
 
-package imagerecognition.functions;
+package imagerecognition.math;
 
 /**
  *
- * @author simokork
+ * Matriisin kuvaamiseen käytetty luokka.
  */
 public class Matrix {
+    
     private double matrix[][];
 
-    
+    /**
+     * Matriisin luova konstruktori.
+     * @param matrix matriisi taulukkona
+     */
     public Matrix(double[][] matrix) {
         
         this.matrix = matrix;
     
     }
     
-    
+    /**
+     * Metodi palauttaa nollamatriisin, jossa on n riviä ja m saraketta.
+     * @param n rivien määrä
+     * @param m sarakkeiden määrä
+     * @return nollamatriisi
+     */
     public static Matrix zeros(int n, int m) {
         
         double[][] a = new double[n][m];
@@ -34,15 +43,28 @@ public class Matrix {
     
     }
     
-    
+    /**
+     * 
+     * @return rivien määrä
+     */
     public int getRows() {
         return matrix.length;
     }
     
+    /**
+     * 
+     * @return sarakkeiden määrä
+     */
     public int getCols() {
         return matrix[0].length;
     }
     
+    
+    /**
+     * Metodi palauttaa matriisin A ja matriisin B matriisitulon AB.
+     * @param other matriisi B
+     * @return tulo AB
+     */
     public Matrix product(Matrix other) {
         
         
@@ -64,20 +86,41 @@ public class Matrix {
         return result;
     }
     
+    /**
+     * Metodi palauttaa matriisin solun A(i, j) arvon.
+     * @param i rivi
+     * @param j sarake
+     * @return 
+     */
+    
     public double get(int i, int j) {
         return matrix[i][j];
     }
-    
+    /**
+     * Metodi asettaa matriisin solun A(i, j) arvoksi annetun arvon.
+     * @param i rivi
+     * @param j sarake
+     * @param value asetettava arvo
+     */
     public void set(int i, int j, double value) {
         matrix[i][j] = value;
     }
     
+    /**
+     * 
+     * @return matriisi taulukkona
+     */
     public double[][] asArray () {
     
         return matrix;
     
     }
     
+    /**
+     * Metodi palauttaa matriisin kerrottuna skalaarilla.
+     * @param mult skalaari
+     * @return uusi matriisi
+     */
     public Matrix times(double mult) {
         Matrix result = Matrix.zeros(getRows(), getCols());
     
@@ -97,7 +140,10 @@ public class Matrix {
 
     
     
-    
+    /**
+     * Metodi palauttaa matriisin transponoituna.
+     * @return transpoosi
+     */
     public Matrix transpose() {
         
         Matrix transpose = Matrix.zeros(getCols(), getRows());
@@ -115,7 +161,10 @@ public class Matrix {
     
     
     
-    
+    /**
+     * Metodi palauttaa sarakkeittain lasketun summan matriisin alkioista.
+     * @return sarakesummamatriisi
+     */
     public Matrix columnSum() {
         Matrix sum = Matrix.zeros(1, getRows());
         
@@ -137,7 +186,11 @@ public class Matrix {
     
     }
     
-    
+    /**
+     * Metodi laskee matriisien A ja B summan.
+     * @param b yhteenlaskettava matriisi
+     * @return summa
+     */
     public Matrix plus(Matrix b) {
     
         Matrix result = Matrix.zeros(getRows(), getCols());

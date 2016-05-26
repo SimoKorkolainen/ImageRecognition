@@ -5,16 +5,22 @@
  */
 package imagerecognition.data.classification;
 
-import imagerecognition.data.DataPoint;
+import imagerecognition.math.Vector;
+
 
 /**
  *
- * @author Simo
+ * Vektori, joka sisältää vektorin luokan.
  */
-public class ClassifiedDataPoint extends DataPoint {
+public class ClassifiedVector extends Vector {
     private int pointClass;
 
-    public ClassifiedDataPoint(double[] data, int pointClass) {
+    /**
+     * konstruktori luo Luokitellun vektorin.
+     * @param data vektorin data
+     * @param pointClass vektorin luokka
+     */
+    public ClassifiedVector(double[] data, int pointClass) {
         super(data);
         this.pointClass = pointClass;
     }
@@ -22,7 +28,8 @@ public class ClassifiedDataPoint extends DataPoint {
     public int getPointClass() {
         return pointClass;
     }
-
+    
+    
     public void setPointClass(int pointClass) {
         this.pointClass = pointClass;
     }

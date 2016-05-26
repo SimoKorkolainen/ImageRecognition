@@ -1,4 +1,4 @@
-package imagerecognition.functions;
+package imagerecognition.functions.activation;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -6,19 +6,22 @@ package imagerecognition.functions;
  * and open the template in the editor.
  */
 
+import imagerecognition.functions.activation.ActivationFunction;
+import imagerecognition.functions.activation.SigmoidFunction;
+import imagerecognition.functions.activation.SoftplusFunction;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author Simo
  */
 public class SimpleDifferentiableTest {
-    private static final double ERROR_MARGIN = 0.00001;
+    private static final double ERROR_MARGIN = 0.0001;
     private static final double EPSILON = 0.000001;
     public SimpleDifferentiableTest() {
     }
@@ -52,6 +55,10 @@ public class SimpleDifferentiableTest {
         testDerivativeIsCorrect(new SoftplusFunction());
     }
     
+    @Test
+    public void exponentialDerivativeIsCorrect() {
+        testDerivativeIsCorrect(new ExponentialFunction());
+    }
     
     private double approxDerivative(double x, ActivationFunction f, double h) {
     

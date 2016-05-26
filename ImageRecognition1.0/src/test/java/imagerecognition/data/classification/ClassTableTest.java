@@ -65,6 +65,13 @@ public class ClassTableTest {
     public void classNameSearchingWorksWhenClassDoesntExist() {
         assertEquals(-1, table.findClassNumber("Hello world"));
     }
+    
+    @Test
+    public void arrayCreationWorks() {
+        table = new ClassTable(new String[]{"man", "woman"});
+        assertEquals("woman", table.getClassName(1));
+    }
+    
     @After
     public void tearDown() {
     }

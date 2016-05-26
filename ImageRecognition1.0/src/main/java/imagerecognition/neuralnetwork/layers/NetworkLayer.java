@@ -3,32 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package imagerecognition.network.layers;
+package imagerecognition.neuralnetwork.layers;
 
-import imagerecognition.functions.ActivationFunction;
 import imagerecognition.functions.NeuronLayerFunction;
-import imagerecognition.functions.Vector;
+import imagerecognition.math.Vector;
 
 /**
  *
- * @author Simo
+ * NetworkLayer on neuroverkon kerrosta kuvaava luokka.
  */
 public class NetworkLayer {
     private NeuronLayerFunction function;
     private Vector value;
 
+    /**
+     * Syötekerroksen konstruktori.
+     * @param size kerroksen koko
+     */
     public NetworkLayer(int size) {
         value = Vector.zero(size);
     }
     
-    
+    /**
+     * Normaalin kerroksen konstruktori.
+     * @param function koko kerroksessa käytetty funktio
+     */
     public NetworkLayer(NeuronLayerFunction function) {
         this(function.outputSize());
         this.function = function;
     }
     
     
-    
+    /**
+     * Metodi päivittää kerroksen.
+     * @param input syötekerros
+     */
     public void updateLayer(NetworkLayer input) {
         if (function == null) {
             return;

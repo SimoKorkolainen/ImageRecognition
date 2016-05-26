@@ -6,9 +6,15 @@
 
 package imagerecognition.functions;
 
+import imagerecognition.functions.differentiation.ParametricDifferentiable;
+import imagerecognition.functions.differentiation.Differentiable;
+import imagerecognition.math.Vector;
+
 /**
  *
- * @author simokork
+ * ParametricFunction määrittelee abstraktin funktion, jolla on parametreja.
+ * Funktiota on mahdollista derivoida sekä parametrien, että syötteiden 
+ * suhteen.
  */
 public abstract class ParametricFunction extends VectorFunction implements Differentiable, ParametricDifferentiable {
     

@@ -3,12 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package imagerecognition.functions;
+package imagerecognition.functions.activation;
 
 /**
  *
- * @author Simo
+ * Rajapinta SimpleDifferentiable määritteleen yksi yhteen derivoituvan reaalifunktion.
  */
 public interface SimpleDifferentiable {
+    
+    /**
+     * Metodi palauttaa funktion derivaatan pisteessä x.
+     * @param x piste
+     * @return derivaatta
+     */
     public double getDerivative(double x);
 }

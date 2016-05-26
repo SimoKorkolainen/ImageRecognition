@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package imagerecognition.functions;
+package imagerecognition.functions.activation;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -50,5 +50,10 @@ public class FunctionMakerTest {
     @Test
     public void makingSoftplusWorks() {
         assertEquals("Softplus", FunctionMaker.make("Softplus").getName());
+    }
+    
+    @Test
+    public void makingExponentialWorks() {
+        assertEquals("Exponential", FunctionMaker.make("Exponential").getName());
     }
 }

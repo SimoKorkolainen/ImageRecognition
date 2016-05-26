@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author simokork
+ * UserInterface on käyttöliittymäluokka. Joka tällä hetkellä visualisoi dataa.
  */
 public class UserInterface implements Runnable {
     
@@ -27,7 +27,7 @@ public class UserInterface implements Runnable {
     
     @Override
     public void run() {
-        CifarDataset data = new CifarDataset(1);
+        
         
         
         
@@ -37,26 +37,27 @@ public class UserInterface implements Runnable {
         
         frame.setSize(800, 800);
         
+        frame.setTitle("ImageRegognition data visualization");
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        Container container = frame.getContentPane();
+        createComponents(frame.getContentPane());
+        
+
+        frame.pack();
+
+        
+
+        
+    }
+    
+    
+    
+    
+    public void createComponents(Container container) {
+        CifarDataset data = new CifarDataset(1);
         
         container.setLayout(new GridLayout(20, 5));
-        
-
-
-        String[] nimet = {"airplane", 
-                          "automobile",
-                          "bird",
-                          "cat",
-                          "deer",
-                          "dog",
-                          "frog",
-                          "horse",
-                          "ship",
-                          "truck",
-                          "cat"};
-        
         BufferedImage[] imgs = data.getImages();
         int classes[] = data.getClasses();
         int ind = 0;
@@ -64,7 +65,7 @@ public class UserInterface implements Runnable {
             for (int j = 0; j < 5; j++) {
                 
 
-                JLabel label = new JLabel(nimet[classes[ind]]);
+                JLabel label = new JLabel(data.getClassTable().getClassName(classes[ind]));
 
                 
                 label.setIcon(new ImageIcon(imgs[ind]));
@@ -73,12 +74,7 @@ public class UserInterface implements Runnable {
                 ind++;
             }
         }
-        
+    
     }
-    
-    
-    
-    
-    public void createComponents() {}
     
 }

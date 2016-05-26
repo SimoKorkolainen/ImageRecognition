@@ -1,21 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package imagerecognition.data.classification;
 
 /**
  *
- * @author Simo
+ * ClassTable on luokka, joka sisältää luokkien ihmisluettavat nimet.
  */
 public class ClassTable {
     private String[] classNames;
+    
+    /**
+     * Konstruktori ClassTable-luokalle.
+     * @param size taulun koko
+     */
     public ClassTable(int size) {
         this.classNames = new String[size];
         init();
     }
+    /**
+     * Konstruktori luo luokkataulun nimien perusteella.
+     * @param names nimet
+     */
+    public ClassTable(String[] names) {
+        this.classNames = names;
+    }
     
+ 
+    /**
+     * Metodi palauttaa luokkanumeroa vastaavan nimen.
+     * @param classNumber luokkanumero
+     * @return luokan nimi
+     */
     public String getClassName(int classNumber) {
         return classNames[classNumber];
     }
@@ -26,14 +40,32 @@ public class ClassTable {
         } 
     }
     
+    /**
+     * Metodi asettaa luokkanumeroa vastaavan luokan nimeksi parametrina
+     * annetun nimen.
+     * @param className luokkanimi
+     * @param classNumber luokkanumero
+     */
     public void setClassName(String className, int classNumber) {
         classNames[classNumber] = className;
     }
     
+    /**
+     * 
+     * @return taulukon koko  
+     */
     public int getNumberOfClasses() {
         return classNames.length;
     }
     
+    
+    
+    /**
+     * Metodi palauttaa nimeä vastaavan luokan luokkanumeron tai -1 jos luokkaa
+     * ei löydy.
+     * @param className luokkanimi
+     * @return luokkanumero
+     */
     public int findClassNumber(String className) {
         
         for (int i = 0; i < classNames.length; i++) {

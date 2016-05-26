@@ -7,8 +7,8 @@ package imagerecognition.data;
 
 /**
  *
- * @author Simo
+ * Mnist dataa varten tehty datasetti.
  */
-public class MnistDataset {// public class MnistDatabase implements Database {
+public class MnistDataset {
     
 }

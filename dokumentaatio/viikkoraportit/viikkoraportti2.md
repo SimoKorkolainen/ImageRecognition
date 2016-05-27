@@ -1,5 +1,5 @@
 
-## Viikkoraportti viikko 2
+## Viikkoraportti viikko 2 (luonnos)
 
 Mitä olen tehnyt tällä viikolla?
 Miten ohjelma on edistynyt?

@@ -9,7 +9,7 @@ Mitä teen seuraavaksi?
 
 Tällä viikolla keskityin neuroverkkoihin liittyvään laskentaan.
 
-Koodasin matriisiluokan vektorifunktioiden Jakobiaanien laskemiseen. Jakobiaanilla tarkoitetaan vektorifunktion derivaattaa, jossakin pisteessä.
+Koodasin matriisiluokan vektorifunktioiden Jakobiaanien laskemiseen. Jakobiaanilla tarkoitetaan vektorifunktion derivaattaa, jossakin pisteessä x_0. Tässä pisteessä funktiota on mahdollista arvioida lokaalisti eli f(x_0 + h) = f(x_0) + J (h - x_0) + O(||h||^2)
 
 Käytin myös paljon aikaa laskennan testaamiseen, ja löysin paljon virheitä. Miten helppoa onkaan vahingossa kirjoittaa numero yksi nollan sijaan. 
 

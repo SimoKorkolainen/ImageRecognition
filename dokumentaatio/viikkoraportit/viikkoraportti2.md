@@ -13,5 +13,5 @@ Koodasin matriisiluokan vektorifunktioiden Jakobiaanien laskemiseen.
 
 Käytin myös paljon aikaa laskennan testaamiseen, ja löysin paljon virheitä. Miten helppoa onkaan vahingossa kirjoittaa numero yksi nollan sijaan. 
 
-Koodissani olen laskenut jakobiaanit derivointiin liittyviä matemaattisia tuloksia käyttäen. Kuitenkin testaamista varten tein koodin, joka laskee jakobiaanin numeerisesti käyttäen derivaatan määritelmää.
+Koodissani olen laskenut jakobiaanit derivointiin liittyviä matemaattisia tuloksia käyttäen. Kuitenkin testaamista varten tein koodin, joka laskee Jakobiaanin numeerisesti käyttäen derivaatan määritelmää.
 Tarkemmin sanottuna käytin hyväkseni sitä tietoa, että derivaatta f'(x) on lähellä lukua (f(x + h) - f(x)) / h, kun h on itseisesti pieni. 

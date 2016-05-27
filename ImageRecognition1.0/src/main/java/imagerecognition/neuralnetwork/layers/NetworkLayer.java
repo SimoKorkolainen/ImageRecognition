@@ -5,7 +5,7 @@
  */
 package imagerecognition.neuralnetwork.layers;
 
-import imagerecognition.functions.NeuronLayerFunction;
+import imagerecognition.functions.general.NeuronLayerFunction;
 import imagerecognition.math.Vector;
 
 /**

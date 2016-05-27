@@ -68,7 +68,7 @@ public class Matrix {
     public Matrix product(Matrix other) {
         
         
-        Matrix result = zeros(getRows(), getCols());
+        Matrix result = zeros(getRows(), other.getCols());
         
         
         for (int i = 0; i < getRows(); i++) {
@@ -178,7 +178,7 @@ public class Matrix {
                 
             }
             
-            sum.set(1, j, colSum);
+            sum.set(0, j, colSum);
         
         }
         
@@ -206,6 +206,20 @@ public class Matrix {
         
         return result;
     
+    
+    }
+    
+    public void print() {
+        
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getCols(); j++) {
+                
+                System.out.print(get(i, j) + " ");
+                
+            }
+            System.out.println("");
+        
+        }  
     
     }
 

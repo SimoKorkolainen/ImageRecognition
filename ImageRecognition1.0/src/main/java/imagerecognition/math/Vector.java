@@ -56,7 +56,7 @@ public class Vector extends Matrix {
      * @param b vektori
      * @return ketjutettu vektori
      */
-    public Vector concatenate(Vector a, Vector b) {
+    public static Vector concatenate(Vector a, Vector b) {
         
         double c[] = new double[a.size() + b.size()];
         
@@ -122,6 +122,8 @@ public class Vector extends Matrix {
         return new Vector(Matrix.zeros(n, 1).asArray());
     }
     
-    
+    public Vector plus(Vector other) {
+        return new Vector(super.plus(other).asArray());
+    }
     
 }

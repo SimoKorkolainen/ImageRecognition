@@ -6,6 +6,7 @@
 
 package imagerecognition.util;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -48,7 +49,30 @@ public class ImageCreatorTest {
     @Test
     public void singlePixelImageRedColorIsCorrect() {
     
-        assertEquals(124, imgs[0].getRGB(0, 0) & 0x00ff0000 >> 16);
+        assertEquals(124, (imgs[0].getRGB(0, 0) & 0x00ff0000) >> 16);
     
     }
+    
+    @Test
+    public void singlePixelImageBlueColorIsCorrect() {
+    
+        assertEquals(160, (imgs[0].getRGB(0, 0) & 0x0000ff00) >> 8);
+    
+    } 
+    
+    @Test
+    public void singlePixelImageGreenColorIsCorrect() {
+    
+        assertEquals(0, imgs[0].getRGB(0, 0) & 0x000000ff);
+    
+    } 
+    
+    @Test
+    public void singlePixelImageAlphaIsCorrect() {
+
+        assertEquals(255, (imgs[0].getRGB(0, 0) & 0xff000000) >>> 24);
+        
+
+    
+    } 
 }

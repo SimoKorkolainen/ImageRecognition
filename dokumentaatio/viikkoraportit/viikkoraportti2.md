@@ -18,4 +18,4 @@ Tarkemmin sanottuna käytin hyväkseni sitä tietoa, että derivaatta f'(x) on l
 
 ![moi](https://latex.codecogs.com/gif.latex?\sum_{k=0}^{n})
 
-<img src="https://latex.codecogs.com/gif.latex?\sum" title="\sum" />
+<img src="https://latex.codecogs.com/gif.latex?\sum" title="\sum_{k}" />

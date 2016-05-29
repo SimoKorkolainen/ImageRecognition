@@ -18,4 +18,4 @@ Tarkemmin sanottuna käytin hyväkseni sitä tietoa, että derivaatta f'(x) on l
 
 ![moi](https://latex.codecogs.com/gif.latex?x^2+1)
 
-[](https://latex.codecogs.com/pdf.latex?\sum_{k}^{10})
+[Moi](https://latex.codecogs.com/png.latex?\sum_{k}^{10})

@@ -17,3 +17,5 @@ Koodissani olen laskenut jakobiaanit derivointiin liittyviä matemaattisia tulok
 Tarkemmin sanottuna käytin hyväkseni sitä tietoa, että derivaatta f'(x) on lähellä lukua (f(x + h) - f(x)) / h, kun h on itseisesti pieni.
 
 ![moi](https://latex.codecogs.com/gif.latex?\sum_{k=0}^{n})
+
+<img src="https://latex.codecogs.com/gif.latex?\sum" title="\sum" />

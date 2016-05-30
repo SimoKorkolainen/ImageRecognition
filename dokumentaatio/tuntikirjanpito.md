@@ -8,3 +8,4 @@ Päivä | Tunnit | Kuvaus
 25.5 | 5h | Datan lukeminen tiedostoista, funktioiden derivoimisen koodaus ja käyttöliittymän tekemisen aloitus
 26.5 | 5h | Neuroverkkojen koodaus, koodin testaus ja JavaDocien kirjoittaminen
 27.5 | 5h | Koodin testaus
+30.5 | 3h | Dokumentaation kirjoitus

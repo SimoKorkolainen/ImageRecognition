@@ -1,19 +1,12 @@
 
-## Viikkoraportti viikko 2 (luonnos)
+## Viikkoraportti viikko 2
 
-Mitä olen tehnyt tällä viikolla?
-Miten ohjelma on edistynyt?
-Mitä opin tällä viikolla / tänään?
-Mikä jäi epäselväksi tai tuottanut vaikeuksia? Vastaa tähän kohtaan rehellisesti, koska saat tarvittaessa apua tämän kohdan perusteella.
-Mitä teen seuraavaksi?
+Tällä viikolla keskityin neuroverkkoihin liittyvään laskentaan. Työtä hankaloitti huomattavasti se, että tietokoneeni näytön taustavalo meni rikki, enkä pystynyt työskentelemään kunnolla kotona.
 
-Tällä viikolla keskityin neuroverkkoihin liittyvään laskentaan.
+Koodasin matriisiluokan vektorifunktioiden Jakobiaanien laskemiseen. Jakobiaanilla J tarkoitetaan vektorifunktion derivaattaa, jossakin pisteessä x. Tässä pisteessä funktiota on mahdollista arvioida lokaalisti lineaarikuvauksella eli f(x + h) = f(x) + J (h - x) + O(||h||^2). Koodissani olen laskenut jakobiaanit derivointiin liittyviä matemaattisia tuloksia käyttäen.
 
-Koodasin matriisiluokan vektorifunktioiden Jakobiaanien laskemiseen. Jakobiaanilla J tarkoitetaan vektorifunktion derivaattaa, jossakin pisteessä x. Tässä pisteessä funktiota on mahdollista arvioida lokaalisti lineaarikuvauksella eli f(x + h) = f(x) + J (h - x) + O(||h||^2).
+Käytin myös paljon aikaa laskennan testaamiseen, ja löysin paljon virheitä. Miten helppoa onkaan vahingossa kirjoittaa numero yksi nollan sijaan tai tehdä jotain muuta tyhmää. Testaamista varten tein koodin, joka laskee Jakobiaanin numeerisesti käyttäen derivaatan määritelmää. Tarkemmin sanottuna käytin hyväkseni sitä tietoa, että derivaatta f'(x) on lähellä lukua (f(x + h) - f(x)) / h, kun h on itseisesti pieni.
 
-Käytin myös paljon aikaa laskennan testaamiseen, ja löysin paljon virheitä. Miten helppoa onkaan vahingossa kirjoittaa numero yksi nollan sijaan. 
+Seuraavalla viikolla tarkoituksenani on tehdä neuroverkon opettamiseen liittyvää toiminnallisuutta. Saatan myös muuttaa ohjelman rakennetta erilaiseksi, mikäli osoittautuu, että se on aiheellista. Onko viikolla kolme tarkoitus kirjoittaa vertausarviointi vai vasta viikon kolme päätyttyä?
 
-Koodissani olen laskenut jakobiaanit derivointiin liittyviä matemaattisia tuloksia käyttäen. Kuitenkin testaamista varten tein koodin, joka laskee Jakobiaanin numeerisesti käyttäen derivaatan määritelmää.
-Tarkemmin sanottuna käytin hyväkseni sitä tietoa, että derivaatta f'(x) on lähellä lukua (f(x + h) - f(x)) / h, kun h on itseisesti pieni.
 
-![moi](https://latex.codecogs.com/png.latex?%5Csum)

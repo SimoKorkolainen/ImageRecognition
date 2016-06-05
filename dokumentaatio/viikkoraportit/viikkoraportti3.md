@@ -8,6 +8,6 @@ Koodasin neuroverkkojen oppimiseen liittyvää koodia. Lisäksi testasin kirjoit
 
 Algoritmi on periaattessa aika simppeli, mutta yksityiskohtia on paljon ja pieniä vikoja syntyy helposti. Vikojen korjaamiseen sitten meneekin helposti useita tunteja. Esimerkiksi yhdessä kohdassa piti lukea n + 1, mutta olin kirjoittanut n - 1. Etsin virhettä aluksi aivan väärästä paikasta, mutta sitten lopulta löysin virheen.
 
-Tällä hetkellä algoritmi oppii vakiofunktion oikein. Kuitenkin koodissa on vielä virheitä, joten algoritmi ei opi monimutkaisempia funktiota.
+Tällä hetkellä algoritmi oppii vakiofunktion oikein. Kuitenkin koodissa on vielä virheitä, joten algoritmi ei opi monimutkaisempia funktiota. Koodin testaamista hidasti se, että PIT-testien generointi kestää itselleni tuntemattomasta syystä noin 15 min. Muissa projekteissa PIT on paljon nopeampi. Raskaiden testien poiskommentoiminen ei tunnu vaikuttavan nopeuteen.
 
 Minulle heräsi muutamia kysymyksiä. Onko sallittua käyttää javan Random-luokkaa? Entä javan Math-luokkaa? Esim. logaritmifunktion numeerinen laskeminen itse olisi aika masokistista. 

@@ -7,8 +7,8 @@ package imagerecognition.training;
 
 /**
  *
- * Opetukseen käytettävä rajapinta.
+ * @author Simo
  */
 public interface Trainable {
-    public void train();
+    public void train(double learnignRate);
 }

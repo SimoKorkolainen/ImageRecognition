@@ -96,7 +96,7 @@ public class NeuralNetworkTest {
         
         initializeToZeroWeighted();
         
-        Vector value = network.update(new double[]{42, Math.PI});
+        Vector value = network.updateValues(new Vector(new double[]{42, Math.PI}));
         
         assertEquals(Math.log(2), value.get(0), ERROR_MARGIN);
         
@@ -108,7 +108,7 @@ public class NeuralNetworkTest {
     public void outputIsCorrectWithPlusMinusWeights() {
         initializeToPlusMinusOneWeighted();
         
-        Vector value = network.update(new double[]{3, Math.PI});
+        Vector value = network.updateValues(new Vector(new double[]{3, Math.PI}));
         
         double expected = 1.0 / (1 + Math.exp(Math.PI - 3));
         
@@ -121,7 +121,7 @@ public class NeuralNetworkTest {
     public void outputIsCorrectWithSoftmax() {
         initializeToSoftmax();
         
-        Vector value = network.update(new double[]{-2, 1});
+        Vector value = network.updateValues(new Vector(new double[]{-2, 1}));
         
         double a = Math.exp(-2 * 2 - 5 * 1);
         double b = Math.exp(2 * 5 - 1 * 1);
@@ -137,7 +137,7 @@ public class NeuralNetworkTest {
         initializeToSoftmax();
         
         
-        Vector value = network.update(new double[]{-0.5, Math.sqrt(42)});
+        Vector value = network.updateValues(new Vector(new double[]{-0.5, Math.sqrt(42)}));
 
         
         assertEquals(1, value.get(0) + value.get(1), ERROR_MARGIN);

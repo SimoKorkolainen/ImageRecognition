@@ -51,7 +51,7 @@ public class CifarDataset {
         
         for (int i = 0; i < vectors.length; i++) {
             double[] data = ArrayUtil.int1DToDouble1D(ArrayUtil.reshape3DTo1D(rgbData[i]));
-            vectors[i] = new ClassifiedVector(data, classes[i]);
+            vectors[i] = new ClassifiedVector(data, classes[i], classTable.getNumberOfClasses());
         
         }
         

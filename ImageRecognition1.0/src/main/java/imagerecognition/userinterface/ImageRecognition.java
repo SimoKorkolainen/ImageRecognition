@@ -5,7 +5,6 @@
  */
 package imagerecognition.userinterface;
 
-import imagerecognition.data.datasets.CifarDataset;
 import javax.swing.SwingUtilities;
 
 /**

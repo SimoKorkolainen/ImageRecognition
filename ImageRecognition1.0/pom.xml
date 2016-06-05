@@ -32,7 +32,8 @@
                         <param>imagerecognition.neuralnetwork.*</param>
                         <param>imagerecognition.training.*</param>
                         <param>imagerecognition.util.*</param>
-                        
+                        <param>imagerecognition.training.*</param>
+                        <param>imagerecognition.testing.*</param>
                     </targetClasses>
                 </configuration>
             </plugin>

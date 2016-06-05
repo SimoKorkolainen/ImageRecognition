@@ -10,14 +10,16 @@ import imagerecognition.functions.differentiation.Differentiable;
 import imagerecognition.math.Vector;
 import imagerecognition.math.Matrix;
 import imagerecognition.functions.activation.ActivationFunction;
+import imagerecognition.neuralnetwork.layers.NetworkLayer;
+import imagerecognition.training.Trainable;
 
 /**
  *
  * NeuronLayerFunction luokka kuvaa neuroverkon kerrosten välistä funktiota.
  */
-public class NeuronLayerFunction extends VectorFunction implements Differentiable {
+public class NeuronLayerFunction extends VectorFunction implements Differentiable, Trainable {
     
-    
+    private NetworkLayer layer;
     private NeuronFunction[] functions;
     
     /**
@@ -59,6 +61,7 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
      * @param x piste
      * @return arvo
      */
+    @Override
     public Vector value(Vector x) {
     
         Vector value = Vector.zero(outputSize());
@@ -116,6 +119,51 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
     @Override
     public int outputSize() {
         return functions.length;
+    }
+
+    @Override
+    public void train(double learningRate) {
+        for (int i = 0; i < outputSize(); i++) {
+        
+            trainFunction(i, learningRate);
+        
+        }
+    }
+    
+    
+    public void trainFunction(int i, double learningRate) {
+    
+        Matrix outputErrorGradient = layer.getOutputErrorGradient();
+        
+        int layerN = layer.getLayerNumber();
+        
+        NetworkLayer previous = layer.getNetwork().getPreviousLayer(layerN);
+        
+        Vector input = previous.getValue();
+        
+        NeuronFunction function = functions[i];
+        
+        Matrix jakob = function.parameterJacobian(input);
+        
+        Matrix parameterErrorGradient = jakob.times(outputErrorGradient.get(0, i));
+        
+        Matrix diff = parameterErrorGradient.transpose().times(-learningRate);
+        
+        Vector TrainedParameter = new Vector(function.getParameter().plus(diff).asArray());
+    
+        function.setParameter(TrainedParameter);
+    }
+
+    public void setLayer(NetworkLayer layer) {
+        this.layer = layer;
+    }
+
+    public NetworkLayer getLayer() {
+        return layer;
+    }
+
+    public NeuronFunction[] getFunctions() {
+        return functions;
     }
 
     

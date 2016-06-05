@@ -6,21 +6,28 @@
 package imagerecognition.neuralnetwork.layers;
 
 import imagerecognition.functions.general.NeuronLayerFunction;
+import imagerecognition.math.Matrix;
 import imagerecognition.math.Vector;
+import imagerecognition.neuralnetwork.NeuralNetwork;
+import imagerecognition.training.Trainable;
 
 /**
  *
  * NetworkLayer on neuroverkon kerrosta kuvaava luokka.
  */
-public class NetworkLayer {
+public class NetworkLayer implements Trainable {
     private NeuronLayerFunction function;
     private Vector value;
+    private Matrix errorGradient;
+    private NeuralNetwork network;
+    private int layerNumber;
 
     /**
      * Syötekerroksen konstruktori.
      * @param size kerroksen koko
      */
     public NetworkLayer(int size) {
+        errorGradient = Matrix.zeros(size, 1);
         value = Vector.zero(size);
     }
     
@@ -30,29 +37,77 @@ public class NetworkLayer {
      */
     public NetworkLayer(NeuronLayerFunction function) {
         this(function.outputSize());
+        System.out.println(function);
         this.function = function;
     }
     
     
     /**
      * Metodi päivittää kerroksen.
-     * @param input syötekerros
+     *
      */
-    public void updateLayer(NetworkLayer input) {
+    public void updateLayer() {
         if (function == null) {
             return;
         }
         
-        value = function.value(input.getValue());
+        NetworkLayer prev = network.getPreviousLayer(layerNumber);
+        
+        value = function.value(prev.getValue());
+    }
+    
+    public void updateOutputErrorGradient() {
+        System.out.println(function.inputSize());
+        System.out.println(function.outputSize());
+        System.out.println(layerNumber);
+        NetworkLayer next = network.getNextLayer(layerNumber);
+        NetworkLayer prev = network.getPreviousLayer(layerNumber);
+        System.out.println("next size : " + next.getOutputErrorGradient().getRows() + " x " +  next.getOutputErrorGradient().getCols() + " prev size: " + prev.getValue().size());
+        System.out.println(next.getFunction());
+        errorGradient = next.getOutputErrorGradient().product(next.getFunction().jacobian(value));
+    
     }
 
     public Vector getValue() {
         return value;
     }
+    
+    public Matrix getOutputErrorGradient() {
+        return errorGradient;
+    }
 
     public void setValue(Vector value) {
         this.value = value;
     }
+    
+    public void setOutputErrorGradient(Vector vect) {
+        this.errorGradient = vect;
+    }
 
+    @Override
+    public void train(double learningRate) {
+        function.train(learningRate);
+    }
+
+    public void initialize(NeuralNetwork network, int layerNumber) {
+        function.setLayer(this);
+        this.network = network;
+        this.layerNumber = layerNumber;
+    }
+
+    public NeuralNetwork getNetwork() {
+        return network;
+    }
+
+    public int getLayerNumber() {
+        return layerNumber;
+    }
+
+    public NeuronLayerFunction getFunction() {
+        return function;
+    }
+    
+    
+    
     
 }

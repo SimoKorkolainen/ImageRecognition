@@ -66,6 +66,7 @@ public class NeuronFunction extends ParametricFunction {
      */
     @Override
     public Matrix jacobian(Vector x) {
+        assert(getParameter().size() == x.size());
         double dx = activation.getDerivative(x.dotProduct(getParameter()));
         return getParameter().transpose().times(dx);
     }

@@ -126,4 +126,11 @@ public class Vector extends Matrix {
         return new Vector(super.plus(other).asArray());
     }
     
+    public static Vector standardBasisVector(int n, int size) {
+        Vector vect = Vector.zero(size);
+        vect.set(n - 1, 1);
+        
+        return vect;
+    }
+    
 }

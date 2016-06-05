@@ -14,15 +14,17 @@ import imagerecognition.math.Vector;
  */
 public class ClassifiedVector extends Vector {
     private int pointClass;
+    private int pointClassMax;
 
     /**
      * konstruktori luo Luokitellun vektorin.
      * @param data vektorin data
      * @param pointClass vektorin luokka
      */
-    public ClassifiedVector(double[] data, int pointClass) {
+    public ClassifiedVector(double[] data, int pointClass, int pointClassMax) {
         super(data);
         this.pointClass = pointClass;
+        this.pointClassMax = pointClassMax;
     }
 
     public int getPointClass() {
@@ -34,5 +36,8 @@ public class ClassifiedVector extends Vector {
         this.pointClass = pointClass;
     }
     
+    public int getPointClassMax() {
+        return pointClassMax;
+    }
     
 }

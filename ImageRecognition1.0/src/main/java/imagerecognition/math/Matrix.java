@@ -67,9 +67,10 @@ public class Matrix {
      */
     public Matrix product(Matrix other) {
         
-        
+        //System.out.println(getRows() + " x " + getCols() + " times " + other.getRows() + " x " + other.getCols());
         Matrix result = zeros(getRows(), other.getCols());
         
+        assert(getCols() == other.getRows());
         
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < other.getCols(); j++) {

@@ -7,6 +7,7 @@
 package imagerecognition.userinterface;
 
 import imagerecognition.data.datasets.CifarDataset;
+import imagerecognition.neuralnetwork.NeuralNetwork;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
@@ -22,6 +23,14 @@ import javax.swing.JPanel;
 public class UserInterface implements Runnable {
     
     private JFrame frame;
+    private NeuralNetwork network;
+    private CifarDataset dataset;
+    private ImageRecognitionResultsVisualizer viz;
+    public UserInterface(NeuralNetwork network, CifarDataset dataset) {
+        this.network = network;
+        this.dataset = dataset;
+    }
+    
     
 
     
@@ -37,7 +46,7 @@ public class UserInterface implements Runnable {
         
         frame.setSize(800, 800);
         
-        frame.setTitle("ImageRegognition data visualization");
+        frame.setTitle("ImageRegognition visualization");
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -55,26 +64,25 @@ public class UserInterface implements Runnable {
     
     
     public void createComponents(Container container) {
-        CifarDataset data = new CifarDataset(1);
-        
-        container.setLayout(new GridLayout(20, 5));
-        BufferedImage[] imgs = data.getImages();
-        int classes[] = data.getClasses();
-        int ind = 0;
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 5; j++) {
-                
+        viz = new ImageRecognitionResultsVisualizer(6, 3, dataset, network);
+        container.add(viz);
 
-                JLabel label = new JLabel(data.getClassTable().getClassName(classes[ind]));
-
-                
-                label.setIcon(new ImageIcon(imgs[ind]));
-                container.add(label);
-                
-                ind++;
-            }
-        }
     
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+    
+    public void update() {
+
+        
+        if (frame != null  && viz != null) {
+            System.out.println("Updating!!!!!!!!!!!!!!!1");
+            viz.update();
+            frame.revalidate();
+            frame.repaint();
+        }
     }
     
 }

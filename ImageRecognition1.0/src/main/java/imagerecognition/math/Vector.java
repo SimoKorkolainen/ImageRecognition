@@ -83,8 +83,13 @@ public class Vector extends Matrix {
      */
     public double dotProduct(Vector b) {
     
-        return transpose().product(b).get(0, 0);
-    
+        double dp = 0;
+        for (int i = 0; i < b.size(); i++) {
+            
+            dp += get(i) * b.get(i);
+            
+        }
+        return dp;
     }
     
     /**

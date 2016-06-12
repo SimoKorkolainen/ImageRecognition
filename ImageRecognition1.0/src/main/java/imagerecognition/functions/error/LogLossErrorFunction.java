@@ -25,7 +25,7 @@ public class LogLossErrorFunction extends ErrorFunction {
     }
     
     public double logloss(Vector x) {
-        return Math.log(safeValue(x.dotProduct(getParameter())));
+        return -Math.log(safeValue(x.dotProduct(getParameter())));
     }
     
     public double safeValue(double x) {
@@ -50,7 +50,7 @@ public class LogLossErrorFunction extends ErrorFunction {
         
         for (int i = 0; i < inputSize(); i++) {
         
-            j.set(0, i, getParameter().get(i) / x.get(i));
+            j.set(0, i, -getParameter().get(i) / x.get(i));
             
         }
         return j;

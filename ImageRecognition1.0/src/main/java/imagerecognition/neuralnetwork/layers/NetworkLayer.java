@@ -27,7 +27,7 @@ public class NetworkLayer implements Trainable {
      * @param size kerroksen koko
      */
     public NetworkLayer(int size) {
-        errorGradient = Matrix.zeros(size, 1);
+        errorGradient = Matrix.zeros(1, size);
         value = Vector.zero(size);
     }
     
@@ -37,7 +37,6 @@ public class NetworkLayer implements Trainable {
      */
     public NetworkLayer(NeuronLayerFunction function) {
         this(function.outputSize());
-        System.out.println(function);
         this.function = function;
     }
     
@@ -57,14 +56,10 @@ public class NetworkLayer implements Trainable {
     }
     
     public void updateOutputErrorGradient() {
-        System.out.println(function.inputSize());
-        System.out.println(function.outputSize());
-        System.out.println(layerNumber);
+
         NetworkLayer next = network.getNextLayer(layerNumber);
-        NetworkLayer prev = network.getPreviousLayer(layerNumber);
-        System.out.println("next size : " + next.getOutputErrorGradient().getRows() + " x " +  next.getOutputErrorGradient().getCols() + " prev size: " + prev.getValue().size());
-        System.out.println(next.getFunction());
-        errorGradient = next.getOutputErrorGradient().product(next.getFunction().jacobian(value));
+
+        next.getOutputErrorGradient().productToDestination(next.getFunction().jacobian(value), errorGradient);
     
     }
 

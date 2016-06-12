@@ -53,6 +53,8 @@ public class SoftmaxFunctionTest {
     public void tearDown() {
     }
     
+    
+    
     @Test
     public void functionOutputSumsToOne() {
         
@@ -148,7 +150,7 @@ public class SoftmaxFunctionTest {
         }
         
     }
-    
+
 
 
 }

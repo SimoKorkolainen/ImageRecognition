@@ -107,4 +107,10 @@ public class NeuralNetwork implements Trainable {
         layers[layers.length - 1].setOutputErrorGradient(new Vector(jacob.asArray()));
     
     }
+
+    public ErrorFunction getErrorFunction() {
+        return errorFunction;
+    }
+    
+    
 }

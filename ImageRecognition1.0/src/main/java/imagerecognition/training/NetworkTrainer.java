@@ -6,6 +6,7 @@
 package imagerecognition.training;
 
 import imagerecognition.data.classification.ClassifiedVector;
+import imagerecognition.data.datasets.Dataset;
 import imagerecognition.math.Vector;
 import imagerecognition.neuralnetwork.NeuralNetwork;
 
@@ -22,13 +23,18 @@ public class NetworkTrainer {
     }
     
     
-    public void train(ClassifiedVector[] trainingData, double learningRate, int times) {
+    public void train(ClassifiedVector[] trainingData, double learningRate, boolean printInfo) {
     
-        for (int i = 0; i < times; i++) {
-            for (int j = 0; j < trainingData.length; j++) {
-                train(trainingData[j], learningRate);
+
+        for (int j = 0; j < trainingData.length; j++) {
+            
+            if (printInfo && j % 1000 == 0) {
+                System.out.println("Training... " + (100 * j / trainingData.length) + "% ready");
             }
+            
+            train(trainingData[j], learningRate);
         }
+
         
     }
     
@@ -44,14 +50,22 @@ public class NetworkTrainer {
     public void train(ClassifiedVector trainingVector, double learningRate) {
     
 
-        Vector targetOutput = Vector.standardBasisVector(trainingVector.getPointClass(), trainingVector.getPointClassMax());
+        Vector targetOutput = Vector.standardBasisVector(trainingVector.getPointClass() + 1, trainingVector.getPointClassMax());
 
         train(trainingVector, targetOutput, learningRate);
     }
     
     
     
-    
+    public void trainWithDataset(Dataset data, int times, double learningRate, boolean printInfo) {
+        for (int i = 0; i < times; i++) {
+            if (printInfo) {
+                System.out.println("Training session " + (i + 1) + " out of " + times);
+            }
+            
+            train(data.getTrainingData(), learningRate / (i + 1), printInfo);
+        }
+    }
     
     
     

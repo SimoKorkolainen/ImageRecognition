@@ -67,7 +67,7 @@ public class CifarDatasetTest {
     
     @Test
     public void classNumberTenIsCat() {
-        assertEquals("cat", dataset.getClassTable().getClassName(10));
+        assertEquals("cat", dataset.getClassTable().getClassName(3));
     }
     
 }

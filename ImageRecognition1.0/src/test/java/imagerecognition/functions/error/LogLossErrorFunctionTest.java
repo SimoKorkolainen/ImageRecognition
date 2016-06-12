@@ -45,14 +45,14 @@ public class LogLossErrorFunctionTest {
     public void valueIsCorrectWithFirstOne() {
         LogLossErrorFunction error = new LogLossErrorFunction();
         error.setParameter(new Vector(new double[] {1, 0, 0}));
-        assertEquals(Math.log(0.9), error.value(new Vector(new double[] {0.9, 0.05, 0.05})).get(0), ERROR_MARGIN);
+        assertEquals(-Math.log(0.9), error.value(new Vector(new double[] {0.9, 0.05, 0.05})).get(0), ERROR_MARGIN);
     } 
     
     @Test
     public void valueIsCorrectWithLastOne() {
         LogLossErrorFunction error = new LogLossErrorFunction();
         error.setParameter(Vector.standardBasisVector(5, 5));
-        assertEquals(Math.log(0.15), error.value(new Vector(new double[] {0.5, 0.05, 0.05, 0.25, 0.15})).get(0), ERROR_MARGIN);
+        assertEquals(-Math.log(0.15), error.value(new Vector(new double[] {0.5, 0.05, 0.05, 0.25, 0.15})).get(0), ERROR_MARGIN);
     }
     
     @Test
@@ -66,7 +66,7 @@ public class LogLossErrorFunctionTest {
         
         for (int i = 0; i < d.length; i++) {
             
-            assertEquals(1.0 / d[i] * error.getParameter().get(i), grad.get(0, i), ERROR_MARGIN);
+            assertEquals(-1.0 / d[i] * error.getParameter().get(i), grad.get(0, i), ERROR_MARGIN);
             
         }
 
@@ -83,7 +83,7 @@ public class LogLossErrorFunctionTest {
         
         for (int i = 0; i < d.length; i++) {
             
-            assertEquals(1.0 / d[i] * error.getParameter().get(i), grad.get(0, i), ERROR_MARGIN);
+            assertEquals(-1.0 / d[i] * error.getParameter().get(i), grad.get(0, i), ERROR_MARGIN);
             
         }
 

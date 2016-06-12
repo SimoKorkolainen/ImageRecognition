@@ -76,4 +76,10 @@ public class ClassTable {
         
         return -1;
     }
+
+    public String[] getClassNames() {
+        return classNames;
+    }
+    
+    
 }

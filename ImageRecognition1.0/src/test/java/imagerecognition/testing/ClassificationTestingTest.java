@@ -5,6 +5,11 @@
  */
 package imagerecognition.testing;
 
+import imagerecognition.data.datasets.CifarDataset;
+import imagerecognition.data.datasets.Dataset;
+import imagerecognition.neuralnetwork.NeuralNetwork;
+import imagerecognition.neuralnetwork.NeuralNetworkBuilder;
+import imagerecognition.training.NetworkTrainer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,7 +22,10 @@ import static org.junit.Assert.*;
  * @author Simo
  */
 public class ClassificationTestingTest {
-    
+    private NeuralNetwork network;
+    private Dataset dataset;
+    private NetworkTrainer trainer;
+    private ClassificationTesting testing;
     public ClassificationTestingTest() {
     }
     
@@ -36,10 +44,28 @@ public class ClassificationTestingTest {
     @After
     public void tearDown() {
     }
+    
+    public void setUpCifarWithOnlySoftmax() {
+        network = NeuralNetworkBuilder.onlySoftmax(32 * 32 * 3, 10, 0.1);
+        
+        dataset = new CifarDataset(1);
+        
+        trainer = new NetworkTrainer(network);
+        
+        testing = new ClassificationTesting(network);
+    }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void cifarClassificationWorksWithOnlySoftmax() {
+        setUpCifarWithOnlySoftmax();
+        
+        int times = 1;
+        
+        double learningRate = 1;
+        
+        trainer.trainWithDataset(dataset, times, learningRate, true);
+        
+        System.out.println(testing.testScore(dataset.getTrainingData()));
+        
+    }
 }

@@ -21,7 +21,10 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
     
     private NetworkLayer layer;
     private NeuronFunction[] functions;
-    
+    private Matrix jacobianMemory;
+    private Vector valueMemory;
+    private Matrix gradientMemory;
+    private Matrix gradientTransposeMemory;
     /**
      * Funktion luova konstruktori.
      * @param function aktivaatiofunktio
@@ -39,7 +42,10 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
         
         }
         
-    
+        this.jacobianMemory = Matrix.zeros(outputSize(), inputSize);
+        this.valueMemory = Vector.zero(outputSize());
+        this.gradientMemory = Matrix.zeros(1, inputSize());
+        this.gradientTransposeMemory = Matrix.zeros(inputSize(), 1);
     }
     
     public NeuronLayerFunction(ActivationFunction function, Vector[] weights) {
@@ -51,8 +57,10 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
             functions[i] = new NeuronFunction(function, weights[i]);
         
         }
-        
-    
+        this.jacobianMemory = Matrix.zeros(outputSize, weights[0].size());
+        this.valueMemory = Vector.zero(outputSize());
+        this.gradientMemory = Matrix.zeros(1, inputSize());
+        this.gradientTransposeMemory = Matrix.zeros(inputSize(), 1);
     }
     
     
@@ -63,16 +71,15 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
      */
     @Override
     public Vector value(Vector x) {
-    
-        Vector value = Vector.zero(outputSize());
-        
-        for (int i = 0; i < value.size(); i++) {
-        
-            value.set(i, functions[i].doubleValue(x));
+                
+
+        for (int i = 0; i < valueMemory.size(); i++) {
+
+            valueMemory.set(i, functions[i].doubleValue(x));
             
         }
         
-        return value;
+        return valueMemory;
     
     }
     
@@ -84,22 +91,20 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
     @Override
     public Matrix jacobian(Vector x) {
     
-        
-        Matrix jacob = Matrix.zeros(outputSize(), x.size());
-        
+
         for (int i = 0; i < outputSize(); i++) {
         
             Matrix jacobRow = functions[i].jacobian(x);
             
             for (int k = 0; k < jacobRow.getCols(); k++) {
             
-                jacob.set(i, k, jacobRow.get(0, k));
+                jacobianMemory.set(i, k, jacobRow.get(0, k));
             
             }
         
         }
         
-        return jacob;
+        return jacobianMemory;
     
     }
 
@@ -143,15 +148,19 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
         
         NeuronFunction function = functions[i];
         
-        Matrix jakob = function.parameterJacobian(input);
+
         
-        Matrix parameterErrorGradient = jakob.times(outputErrorGradient.get(0, i));
+        Matrix jacob = function.parameterJacobian(input);
         
-        Matrix diff = parameterErrorGradient.transpose().times(-learningRate);
+
+        jacob.timesToDestination(outputErrorGradient.get(0, i), gradientMemory);
         
-        Vector TrainedParameter = new Vector(function.getParameter().plus(diff).asArray());
-    
-        function.setParameter(TrainedParameter);
+        gradientMemory.transposeToDestination(gradientTransposeMemory);
+                
+        gradientTransposeMemory.timesToDestination(-learningRate, gradientTransposeMemory);
+        
+        function.getParameter().plusToDestination(gradientTransposeMemory, function.getParameter());
+
     }
 
     public void setLayer(NetworkLayer layer) {

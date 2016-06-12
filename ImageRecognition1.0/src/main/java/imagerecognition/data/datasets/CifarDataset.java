@@ -19,49 +19,53 @@ import java.nio.file.Path;
  * CifarDataset on luokka, joka lataa kuvia ja luokkia tiedostosta.
  * 
  */
-public class CifarDataset {
+public class CifarDataset implements Dataset {
     private ClassTable classTable;
     private static final int WIDTH = 32;
     private static final int HEIGHT = 32;
     private static final int COLORS = 3;
-    private static final int IMAGES_IN_BATCH = 10000;
+    private static final int IMAGES_IN_BATCH = 1000;
     private static final String PATH = "data/cifar/";
     
 
 
-    private int classes[];
-    private int[][][][] rgbData;
+    private int[] trainingClasses;
+    private int[][][][] trainingRgbData;
+    private int[] testingClasses;
+    private int[][][][] testingRgbData;
+    
+    private ClassifiedVector[] testingData;
+    private ClassifiedVector[] trainingData;
+    
     
     public CifarDataset(int batches) {
         int images = IMAGES_IN_BATCH;
-        rgbData =  new int[images][0][0][0];
-        classes = new int[images];
-        
-        loadImages("data_batch_1.bin");
+        trainingRgbData =  new int[images][0][0][0];
+        trainingClasses = new int[images];
+        testingRgbData =  new int[images][0][0][0];
+        testingClasses = new int[images];
+        loadImages("data_batch_1.bin", false);
+        loadImages("test_batch.bin", true);
         initClassTable();
-        
+
     }
     
     
     
     
     
+    @Override
     public ClassifiedVector[] getTrainingData() {
-        ClassifiedVector[] vectors = new ClassifiedVector[rgbData.length];
-        
-        for (int i = 0; i < vectors.length; i++) {
-            double[] data = ArrayUtil.int1DToDouble1D(ArrayUtil.reshape3DTo1D(rgbData[i]));
-            vectors[i] = new ClassifiedVector(data, classes[i], classTable.getNumberOfClasses());
-        
+        if (trainingData == null) {
+             trainingData = getData(trainingRgbData, trainingClasses);
         }
-        
-        return vectors;
+        return trainingData;
     
     }
             
     
     
-    private void loadImages(String filename) {
+    private void loadImages(String filename, boolean testing) {
     
         filename = PATH + filename;
 
@@ -70,8 +74,11 @@ public class CifarDataset {
         try {
 
             byte[] data = Files.readAllBytes(path);
-            
-            updateRGBAndClassData(data);
+            if (testing) {
+                updateRGBAndClassData(data, testingRgbData, testingClasses);
+            } else {
+                updateRGBAndClassData(data, trainingRgbData, trainingClasses);
+            }
             
         } catch (IOException ex) {
             
@@ -81,18 +88,18 @@ public class CifarDataset {
     
     public int[] getClasses() {
     
-        return classes;
+        return trainingClasses;
     
     }
     
-    private void updateRGBAndClassData(byte[] data) {
+    private void updateRGBAndClassData(byte[] data, int[][][][] rgbDest, int[] classesDest) {
   
-        for (int i = 0; i < rgbData.length; i++) {
+        for (int i = 0; i < trainingRgbData.length; i++) {
             int ind = i * (WIDTH * HEIGHT * COLORS + 1);
-            classes[i] = data[ind];
+            classesDest[i] = data[ind];
             
 
-            rgbData[i] = getRGBData(ind + 1, data);
+            rgbDest[i] = getRGBData(ind + 1, data);
 
         }
     }
@@ -131,8 +138,7 @@ public class CifarDataset {
                                 "frog",
                                 "horse",
                                 "ship",
-                                "truck",
-                                "cat"};
+                                "truck"};
         
         
 
@@ -153,10 +159,48 @@ public class CifarDataset {
      * @return kuvat
      */
     public BufferedImage[] getImages() {
-        return ImageCreator.create(rgbData);
+        return ImageCreator.create(trainingRgbData);
     
     }
+
+    @Override
+    public int getNumberOfDimensions() {
+        return WIDTH * HEIGHT * COLORS;
+    }
+
+    @Override
+    public int getTrainingDataSize() {
+        return getTrainingData().length;
+    }
+
+    @Override
+    public int getTestingDataSize() {
+        return getTestingData().length;
+    }
+
+    @Override
+    public ClassifiedVector[] getTestingData() {
+        
+        if (testingData == null) {
+            testingData = getData(testingRgbData, testingClasses);
+        }
+        
+        
+        return testingData;
+    }
     
+    
+    private ClassifiedVector[] getData(int[][][][] rgbData, int[] classData) {
+        ClassifiedVector[] vectors = new ClassifiedVector[rgbData.length];
+        
+        for (int i = 0; i < vectors.length; i++) {
+            double[] data = ArrayUtil.int1DToDouble1D(ArrayUtil.reshape3DTo1D(rgbData[i]));
+            vectors[i] = new ClassifiedVector(data, classData[i], classTable.getNumberOfClasses());
+        
+        }
+        
+        return vectors;
+    }
     
     
     

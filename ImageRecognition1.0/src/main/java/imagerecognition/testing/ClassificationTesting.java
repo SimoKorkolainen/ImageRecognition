@@ -6,8 +6,11 @@
 package imagerecognition.testing;
 
 import imagerecognition.data.classification.ClassifiedVector;
+import imagerecognition.data.datasets.CifarDataset;
+import imagerecognition.data.datasets.Dataset;
 import imagerecognition.math.Vector;
 import imagerecognition.neuralnetwork.NeuralNetwork;
+import imagerecognition.training.NetworkTrainer;
 
 /**
  *
@@ -46,5 +49,11 @@ public class ClassificationTesting {
         }
         return maxInd == vector.getPointClass();
     }
+    
+    
+    
+    
+    
+
     
 }

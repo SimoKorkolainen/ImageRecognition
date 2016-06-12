@@ -10,6 +10,9 @@ import imagerecognition.functions.general.NeuronLayerFunction;
 import imagerecognition.functions.general.SoftmaxFunction;
 import imagerecognition.functions.activation.SigmoidFunction;
 import imagerecognition.functions.activation.SoftplusFunction;
+import imagerecognition.functions.error.ErrorFunction;
+import imagerecognition.functions.error.QuadraticErrorFunction;
+import imagerecognition.math.Matrix;
 import imagerecognition.math.Vector;
 import imagerecognition.neuralnetwork.layers.NetworkLayer;
 import org.junit.After;
@@ -144,4 +147,80 @@ public class NeuralNetworkTest {
     
     }
     
+    
+
+    public void initializeToTestGradients() {
+    
+        network = new NeuralNetwork(3, 2);
+        
+        Vector[] weights = new Vector[2];
+        
+        weights[0] = new Vector(new double[] {2, -4});
+        weights[1] = new Vector(new double[] {-3, -1});
+        
+        Vector[] secondWeights = new Vector[1];
+        
+        secondWeights[0] = new Vector(new double[] {-1, 1});
+
+        NeuronLayerFunction first = new NeuronLayerFunction(new SoftplusFunction(), weights);
+        
+        NeuronLayerFunction second = new NeuronLayerFunction(new SoftplusFunction(), secondWeights);
+ 
+        
+        network.setLayer(1, new NetworkLayer(first));
+        network.setLayer(2, new NetworkLayer(second));
+        
+        
+    
+    }
+    
+    public void updateNetworkToTestGradients() {
+        network.setErrorFunction(new QuadraticErrorFunction());
+        
+        network.updateValues(new Vector(new double[]{-1, 1}));
+        
+        network.updateGradients(new Vector(new double[] {2}));
+    }
+    
+    @Test
+    public void outputIsCorrectInGradientTest() {
+        initializeToTestGradients();
+        updateNetworkToTestGradients();
+        assertEquals(Math.log((Math.exp(2) + 1) / (Math.exp(-6) + 1) + 1), network.getLayer(2).getValue().get(0), ERROR_MARGIN);
+    }
+    
+    
+    @Test
+    public void errorIsCorrectInGradientTest() {
+        initializeToTestGradients();
+        updateNetworkToTestGradients();
+        assertEquals(Math.pow(Math.log((Math.exp(2) + 1) / (Math.exp(-6) + 1) + 1) - 2, 2) / 2, network.getErrorFunction().value(network.getLayer(2).getValue()).get(0), ERROR_MARGIN);
+    }
+    
+    @Test
+    public void outputErrorGradientIsCorrectInFirstLayer() {
+        initializeToTestGradients();
+        updateNetworkToTestGradients();
+              
+        Matrix grad = network.getLayer(1).getOutputErrorGradient();
+        
+        double err = Math.log((Math.exp(2) + 1) / (Math.exp(-6) + 1) + 1) - 2;
+        double firstGrad = -1 / (Math.exp(Math.log(Math.exp(-6) + 1) - Math.log(Math.exp(2) + 1)) + 1) * err;
+        double secondGrad = -firstGrad;
+        
+        assertEquals(firstGrad, grad.get(0, 0), ERROR_MARGIN);
+        assertEquals(secondGrad, grad.get(0, 1), ERROR_MARGIN);
+    }
+   
+    @Test
+    public void outputErrorGradientIsCorrectInSecondLayer() {
+        initializeToTestGradients();
+        updateNetworkToTestGradients();
+        
+        Matrix grad = network.getLayer(2).getOutputErrorGradient();
+        
+        double err = Math.log((Math.exp(2) + 1) / (Math.exp(-6) + 1) + 1) - 2;
+        
+        assertEquals(err, grad.get(0, 0), ERROR_MARGIN);
+    }
 }

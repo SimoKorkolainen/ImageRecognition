@@ -31,7 +31,7 @@ public class Matrix {
      * @return nollamatriisi
      */
     public static Matrix zeros(int n, int m) {
-        
+
         double[][] a = new double[n][m];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -42,6 +42,8 @@ public class Matrix {
         return new Matrix(a);
     
     }
+    
+    
     
     /**
      * 
@@ -66,12 +68,20 @@ public class Matrix {
      * @return tulo AB
      */
     public Matrix product(Matrix other) {
-        
+        //double nanoTime = System.nanoTime();
+
         //System.out.println(getRows() + " x " + getCols() + " times " + other.getRows() + " x " + other.getCols());
-        Matrix result = zeros(getRows(), other.getCols());
+
+        Matrix result = Matrix.zeros(getRows(), other.getCols());
         
-        assert(getCols() == other.getRows());
+        productToDestination(other, result);
         
+        return result;
+    }
+    
+    
+     public void productToDestination(Matrix other, Matrix destMatrix) {
+
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < other.getCols(); j++) {
                 double dot = 0;
@@ -79,13 +89,13 @@ public class Matrix {
                     dot += get(i, k) * other.get(k, j);
                 }
                 
-                result.set(i, j, dot);
+                destMatrix.set(i, j, dot);
 
             }
         }
-        
-        return result;
+
     }
+    
     
     /**
      * Metodi palauttaa matriisin solun A(i, j) arvon.
@@ -125,21 +135,32 @@ public class Matrix {
     public Matrix times(double mult) {
         Matrix result = Matrix.zeros(getRows(), getCols());
     
+        timesToDestination(mult, result);
         
-        for (int i = 0; i < getRows(); i++) {
-            for (int j = 0; j < getCols(); j++) {
-            
-                result.set(i, j, mult * get(i, j));
-                
-            }
-        }
-    
         return result;
     
     }
     
 
+    /**
+     * Metodi kertoo matriisin skalaarilla.
+     * @param mult skalaari
+     * @param destMatrix tulosmatriisi
+     *
+     */
+    public void timesToDestination(double mult, Matrix destMatrix) {
+
+        
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getCols(); j++) {
+            
+                destMatrix.set(i, j, mult * get(i, j));
+                
+            }
+        }
     
+    
+    } 
     
     /**
      * Metodi palauttaa matriisin transponoituna.
@@ -149,17 +170,27 @@ public class Matrix {
         
         Matrix transpose = Matrix.zeros(getCols(), getRows());
         
-        for (int i = 0; i < getRows(); i++) {
-            for (int j = 0; j < getCols(); j++) {
-            
-                transpose.set(j, i, get(i, j));
-                
-            }
-        }
+        transposeToDestination(transpose);
         
         return transpose;
     }
     
+    /**
+     * Metodi laskee matriisin transpoosin.
+     * 
+     * @param destination tulosmatriisi
+     */
+    public void transposeToDestination(Matrix destination) {
+ 
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getCols(); j++) {
+            
+                destination.set(j, i, get(i, j));
+                
+            }
+        }
+
+    }
     
     
     /**
@@ -167,7 +198,7 @@ public class Matrix {
      * @return sarakesummamatriisi
      */
     public Matrix columnSum() {
-        Matrix sum = Matrix.zeros(1, getRows());
+        Matrix sum = Matrix.zeros(1, getCols());
         
         for (int j = 0; j < getCols(); j++) {
             
@@ -197,19 +228,31 @@ public class Matrix {
         Matrix result = Matrix.zeros(getRows(), getCols());
     
         
-        for (int i = 0; i < getRows(); i++) {
-            for (int j = 0; j < getCols(); j++) {
-            
-                result.set(i, j, get(i, j) + b.get(i, j));
-                
-            }
-        }
+        plusToDestination(b, result);
         
         return result;
     
     
     }
+    /**
+     * Metodi laskee matriisien A ja B summan.
+     * @param destination  tulosmatriisi
+     * @param b yhteenlaskettava matriisi
+     *
+     */
+    public void plusToDestination(Matrix b, Matrix destination) {
     
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getCols(); j++) {
+            
+                destination.set(i, j, get(i, j) + b.get(i, j));
+                
+            }
+        }
+
+    
+    
+    }
     public void print() {
         
         for (int i = 0; i < getRows(); i++) {

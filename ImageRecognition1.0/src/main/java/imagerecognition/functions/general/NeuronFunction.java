@@ -18,9 +18,8 @@ import imagerecognition.functions.activation.ActivationFunction;
  * f on aktivaatiofunktio ja x on syöte.
  */
 public class NeuronFunction extends ParametricFunction {
-
+    private Matrix jacobianMemory;
     private ActivationFunction activation;
-    
     public NeuronFunction(ActivationFunction activation, double weigthRandomness, int inputSize) {
         
         this.activation = activation;
@@ -28,7 +27,8 @@ public class NeuronFunction extends ParametricFunction {
         Vector p = new Vector(ArrayUtil.random(-weigthRandomness, weigthRandomness, inputSize));
 
         super.setParameter(p);
-    
+        
+        jacobianMemory = Matrix.zeros(1, inputSize());
     }
     
     public NeuronFunction(ActivationFunction activation, Vector weights) {
@@ -36,7 +36,8 @@ public class NeuronFunction extends ParametricFunction {
         this.activation = activation;
         
         super.setParameter(weights);
-    
+        
+        jacobianMemory = Matrix.zeros(1, inputSize());
     }
     
     /**
@@ -66,9 +67,11 @@ public class NeuronFunction extends ParametricFunction {
      */
     @Override
     public Matrix jacobian(Vector x) {
-        assert(getParameter().size() == x.size());
+
         double dx = activation.getDerivative(x.dotProduct(getParameter()));
-        return getParameter().transpose().times(dx);
+        getParameter().transposeToDestination(jacobianMemory);
+        jacobianMemory.timesToDestination(dx, jacobianMemory);
+        return jacobianMemory;
     }
     
     
@@ -81,7 +84,9 @@ public class NeuronFunction extends ParametricFunction {
     @Override
     public Matrix parameterJacobian(Vector x) {
         double dx = activation.getDerivative(x.dotProduct(getParameter()));
-        return x.transpose().times(dx);
+        x.transposeToDestination(jacobianMemory);
+        jacobianMemory.timesToDestination(dx, jacobianMemory);
+        return jacobianMemory;
     }
 
     /**

@@ -9,5 +9,9 @@ Päivä | Tunnit | Kuvaus
 26.5 | 5h | Neuroverkkojen koodaus, koodin testaus ja JavaDocien kirjoittaminen
 27.5 | 5h | Koodin testaus
 30.5 | 4h | Dokumentaation kirjoitus
-5.6 | 6h | Oppimiseen liittyvän koodin kirjoitus
-6.6 | 7h | Neuroverkon oppimisen koodaus ja tehtyjen virheiden korjaaminen 
+4.6 | 6h | Oppimiseen liittyvän koodin kirjoitus
+5.6 | 7h | Neuroverkon oppimisen koodaus ja tehtyjen virheiden korjaaminen 
+9.6 | 4h | Neuroverkon oppimisen testaus
+10.6 | 3h | Koodikatselmointi ja neuroverkon oppimisen testaus
+11.6 | 9h | Neuroverkon oppimisen testaus ja dokumentaation kirjoitus
+12.6 | 8h | Dokumentaation kirjoitus ja käyttöliittymän koodaus

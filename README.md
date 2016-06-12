@@ -6,8 +6,8 @@ Ohjelma, joka opettaa neuroverkon tunnistamaan kuvia backpropagation-algoritmin 
 ## Dokumentaatio
 
  - [Aihemäärittely](https://docs.google.com/viewer?url=https://raw.githubusercontent.com/SimoKorkolainen/ImageRecognition/master/dokumentaatio/backpropagation.pdf)
- - [Toteutusdokumentti](https://docs.google.com/viewer?url=https://raw.githubusercontent.com/SimoKorkolainen/ImageRecognition/blob/master/dokumentaatio/toteutusdokumenttiImageRecognition.pdf)
- - [Testausdokumentti](https://docs.google.com/viewer?url=https://raw.githubusercontent.com/SimoKorkolainen/ImageRecognition/blob/master/dokumentaatio/TestausdokumenttiImageRecognition.pdf)
+ - [Toteutusdokumentti](https://docs.google.com/viewer?url=https://raw.githubusercontent.com/SimoKorkolainen/ImageRecognition/master/dokumentaatio/toteutusdokumenttiImageRecognition.pdf)
+ - [Testausdokumentti](https://docs.google.com/viewer?url=https://raw.githubusercontent.com/SimoKorkolainen/ImageRecognition/master/dokumentaatio/TestausdokumenttiImageRecognition.pdf)
  - [Tuntikirjanpito](https://github.com/SimoKorkolainen/ImageRecognition/blob/master/dokumentaatio/tuntikirjanpito.md)
  - [PIT-raportti](http://htmlpreview.github.io/?https://github.com/SimoKorkolainen/ImageRecognition/blob/master/dokumentaatio/pit-reports/201606122157/index.html)
 

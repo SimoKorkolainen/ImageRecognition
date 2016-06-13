@@ -130,7 +130,7 @@ public class CifarDataset implements Dataset {
     
     private void initClassTable() {
         String[] classNames  = {"airplane", 
-                                "automobile",
+                                "car",
                                 "bird",
                                 "cat",
                                 "deer",

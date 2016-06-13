@@ -8,44 +8,62 @@ package imagerecognition.userinterface;
 import imagerecognition.data.classification.ClassTable;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
  * @author Simo
  */
-public class PredictionJLabel extends JLabel {
+public class PredictionPanel extends JPanel {
     private boolean correct;
     private double probability;
     private String name;
 
-    public PredictionJLabel(boolean correct, double probability, String name) {
+    public PredictionPanel(boolean correct, double probability, String name) {
         this.correct = correct;
         this.probability = probability;
         this.name = name;
-        super.setText(name);
+        JLabel nameLabel = new JLabel(name);
+        nameLabel.setOpaque(false);
         super.setOpaque(false);
+        super.add(nameLabel);
     }
     
     @Override
     public void paintComponent(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
+
+        Rectangle bounds = super.getBounds();
+        int startX = 0;
+        int startY = 1;
         
-        g2d.setColor(Color.white);
-        g2d.fillRect(2, 2, (int) ((probability * 200) - 4), 9);
+        int w = (int) (probability * 200);
+        int h = bounds.height - 2;
+        
         g2d.setColor(myColor());
-        g2d.setStroke(new BasicStroke(3));
-        g2d.drawRect(0, 0, (int) (probability * 200), 13);
+        
+        g2d.fillRect(startX, startY, w, h);
         super.paintComponent(g);
     }
     
     public Color myColor() {
         if (correct) {
-            return Color.green;
+            return new Color(100, 255, 100);
         }
-        return Color.red;
+        return new Color(255, 100, 100);
     }
+    
+    @Override
+    public Dimension getMaximumSize() {
+        return new Dimension(5, 200);
+    }
+
 }

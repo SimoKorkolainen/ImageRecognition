@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import javafx.scene.layout.Border;
 import javax.swing.BorderFactory;
@@ -39,18 +40,28 @@ public class RecognitionResultsPanel extends JPanel {
         
         
         constraints.gridx = 0;
-        constraints.gridy = predictions.length / 2;
+        constraints.gridy = 0;
         
         super.add(new JLabel(new ImageIcon(image)), constraints);
         
-        constraints.gridx = 1;
-        constraints.anchor = GridBagConstraints.WEST;
+        JPanel grid = new JPanel();
+        grid.setLayout(new GridLayout(predictions.length, 1));
+        
+        
+
         for (int i = 0; i < predictions.length; i++) {
             
-            constraints.gridy = i;
-            super.add(new PredictionJLabel(i == correctN, predictions[i], classNames[i]), constraints);
+            
+            grid.add(new PredictionPanel(i == correctN, predictions[i], classNames[i]));
         
         }
+        
+        constraints.gridx = 1;
+        constraints.weightx = 3;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.anchor = GridBagConstraints.EAST;
+        
+        super.add(grid, constraints);
     }
     
     

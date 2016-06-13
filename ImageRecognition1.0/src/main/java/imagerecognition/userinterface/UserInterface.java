@@ -64,7 +64,7 @@ public class UserInterface implements Runnable {
     
     
     public void createComponents(Container container) {
-        viz = new ImageRecognitionResultsVisualizer(6, 3, dataset, network);
+        viz = new ImageRecognitionResultsVisualizer(5, 2, dataset, network);
         container.add(viz);
 
     

@@ -15,3 +15,6 @@ Päivä | Tunnit | Kuvaus
 10.6 | 3h | Koodikatselmointi ja neuroverkon oppimisen testaus
 11.6 | 9h | Neuroverkon oppimisen testaus ja dokumentaation kirjoitus
 12.6 | 8h | Dokumentaation kirjoitus ja käyttöliittymän koodaus
+14.6 | 3h | Käyttöliittymän koodaus
+18.6 | 8h | Käyttöliittymän koodaus ja koodin kommentointi
+19.6 | 8h | Käyttöliittymän koodaus ja vertaisarviointi

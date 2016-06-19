@@ -23,20 +23,37 @@ public class SoftmaxFunction extends NeuronLayerFunction {
     private Matrix gradientMemory;
     private Matrix gradientTransposeMemory;
     
+    /**
+     * Konstruktori luo luokitteluun tarkoitetun funktion, jota
+     * käytetään yleensä syötteitä luokittelevan neuroverkon 
+     * viimeisenä kerroksena
+     * @param weightRandomness painojen alustuksen satunnaisuus
+     * @param inputSize syötteen koko (ts. kuinka monta piirrettä syötteinä)
+     * @param outputSize tulosteen koko (ts. kuinka monta luokkaa luokiteltavana)
+     */
     public SoftmaxFunction(double weightRandomness, int inputSize, int outputSize) {
         super(new ExponentialFunction(), weightRandomness, inputSize, outputSize);
         jacobianMemory = Matrix.zeros(outputSize(), inputSize());
         gradientMemory = Matrix.zeros(1, inputSize());
         gradientTransposeMemory = Matrix.zeros(inputSize(), 1);
     }
-    
+    /**
+     * Konstruktori luo luokitteluun tarkoitetun funktion, jota
+     * käytetään yleensä syötteitä luokittelevan neuroverkon 
+     * viimeisenä kerroksena.
+     * @param weights painovektorit
+     */
     public SoftmaxFunction(Vector weights[]) {
         super(new ExponentialFunction(), weights);
         jacobianMemory = Matrix.zeros(outputSize(), inputSize());
         gradientMemory = Matrix.zeros(1, inputSize());
         gradientTransposeMemory = Matrix.zeros(inputSize(), 1);
     }
-    
+    /**
+     * Metodi palautaa luokittelutuloksen syötteellä x.
+     * @param x syöte
+     * @return tuloste
+     */
     @Override
     public Vector value(Vector x) {
     
@@ -45,7 +62,11 @@ public class SoftmaxFunction extends NeuronLayerFunction {
         return value.times(1.0 / value.sum());
     
     }
-    
+    /**
+     * Funktion Jakobiaani syötteiden suhteen pisteessä x.
+     * @param x piste x
+     * @return Jakobiaani
+     */
     @Override
     public Matrix jacobian(Vector x) {
 
@@ -73,30 +94,17 @@ public class SoftmaxFunction extends NeuronLayerFunction {
         return jacobianMemory;
     
     }
-    @Override
-    public void train(double learningRate) {
-        double nanoTime = System.nanoTime();
-        for (int i = 0; i < outputSize(); i++) {
-        
-            trainFunction(i, learningRate);
-        
-        }
-        
-        //System.out.println("training took " + ((System.nanoTime() - nanoTime) * 1e-9) + " seconds");
-    }
-    
+
 
     @Override
-    public void trainFunction(int i, double learningRate) {
+    protected void trainFunction(int i, double learningRate) {
 
         Matrix outputErrorGradient = getLayer().getOutputErrorGradient();
         
         
         NeuronFunction function = getFunctions()[i];
         
-        double nanoTime = System.nanoTime();
         Matrix jacob = getFunctionTrainingJacobian(i);
-        //System.out.println("calculating training jacobian took " + ((System.nanoTime() - nanoTime) * 1e-9) + " seconds");
                 
 
         outputErrorGradient.productToDestination(jacob, gradientMemory);
@@ -113,7 +121,12 @@ public class SoftmaxFunction extends NeuronLayerFunction {
     
     
     
-    
+    /**
+     * Metodi palauttaa funktion i:nnen komponentin parametrien vaikutuksesta
+     * tulosteeseen kertovan Jakobiaanin.
+     * @param i
+     * @return Jakobiaani
+     */
     public Matrix getFunctionTrainingJacobian(int i) {
 
         int layerN = getLayer().getLayerNumber();
@@ -124,9 +137,7 @@ public class SoftmaxFunction extends NeuronLayerFunction {
         
         Vector superVal = super.value(input);
         
-        double nanoTime = System.nanoTime();
         double superValSum = superVal.sum();
-        //System.out.println("calculating sum took " + ((System.nanoTime() - nanoTime) * 1e-9) + " seconds");
 
         double superValSumSqr = superValSum * superValSum;
         
@@ -136,11 +147,9 @@ public class SoftmaxFunction extends NeuronLayerFunction {
         
         Matrix superParGrad = getFunctions()[i].parameterJacobian(input);
         
-        nanoTime = System.nanoTime();
         
         superVal.productToDestination(superParGrad, jacobianMemory);
         
-        //System.out.println("calculating product took " + ((System.nanoTime() - nanoTime) * 1e-9) + " seconds");
                 
         
         return jacobianMemory;

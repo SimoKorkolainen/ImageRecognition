@@ -24,7 +24,7 @@ public class CifarDataset implements Dataset {
     private static final int WIDTH = 32;
     private static final int HEIGHT = 32;
     private static final int COLORS = 3;
-    private static final int IMAGES_IN_BATCH = 1000;
+    private static final int IMAGES_IN_BATCH = 10000;
     private static final String PATH = "data/cifar/";
     
 
@@ -38,12 +38,13 @@ public class CifarDataset implements Dataset {
     private ClassifiedVector[] trainingData;
     
     
-    public CifarDataset(int batches) {
-        int images = IMAGES_IN_BATCH;
-        trainingRgbData =  new int[images][0][0][0];
-        trainingClasses = new int[images];
-        testingRgbData =  new int[images][0][0][0];
-        testingClasses = new int[images];
+    public CifarDataset(int trainingImages, int testingImages) {
+        trainingImages = Math.min(trainingImages, IMAGES_IN_BATCH);
+        testingImages = Math.min(testingImages, IMAGES_IN_BATCH);
+        trainingRgbData =  new int[trainingImages][0][0][0];
+        trainingClasses = new int[trainingImages];
+        testingRgbData =  new int[testingImages][0][0][0];
+        testingClasses = new int[testingImages];
         loadImages("data_batch_1.bin", false);
         loadImages("test_batch.bin", true);
         initClassTable();
@@ -94,7 +95,7 @@ public class CifarDataset implements Dataset {
     
     private void updateRGBAndClassData(byte[] data, int[][][][] rgbDest, int[] classesDest) {
   
-        for (int i = 0; i < trainingRgbData.length; i++) {
+        for (int i = 0; i < rgbDest.length; i++) {
             int ind = i * (WIDTH * HEIGHT * COLORS + 1);
             classesDest[i] = data[ind];
             
@@ -159,25 +160,42 @@ public class CifarDataset implements Dataset {
      * @return kuvat
      */
     public BufferedImage[] getImages() {
-        return ImageCreator.create(trainingRgbData);
+        return ImageCreator.increaseSize(ImageCreator.create(trainingRgbData), 2);
     
     }
 
+    /**
+     * Metodi palauttaa datan dimensioiden lukumäärän.
+     * @return dimensioiden lukumäärä
+     */
     @Override
     public int getNumberOfDimensions() {
         return WIDTH * HEIGHT * COLORS;
     }
 
+    
+    /**
+     * Metodi palauttaa opetusdatanäytteiden lukumäärän.
+     * @return 
+     */
     @Override
     public int getTrainingDataSize() {
         return getTrainingData().length;
     }
 
+    /**
+     * Metodi palauttaa testidatanäytteiden määrän.
+     * @return 
+     */
     @Override
     public int getTestingDataSize() {
         return getTestingData().length;
     }
 
+    /**
+     * Metodi muodostaa ja palauttaa testaamiseen käytettävän datan.
+     * @return testidata
+     */
     @Override
     public ClassifiedVector[] getTestingData() {
         

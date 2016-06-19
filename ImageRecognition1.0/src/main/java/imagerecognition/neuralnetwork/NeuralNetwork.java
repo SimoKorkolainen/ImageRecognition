@@ -19,6 +19,11 @@ public class NeuralNetwork implements Trainable {
     private ErrorFunction errorFunction;
     private NetworkLayer[] layers;
 
+    /**
+     * Konstruktori luo neuroverkon ilman alustettuja kerroksia.
+     * @param layerN kerrosten lukumäärä
+     * @param inputLayerSize neuroverkon syötteen koko
+     */
     public NeuralNetwork(int layerN, int inputLayerSize) {
         layers = new NetworkLayer[layerN];
         layers[0] = new NetworkLayer(inputLayerSize); //The first layer is the input layer
@@ -31,7 +36,7 @@ public class NeuralNetwork implements Trainable {
      */
     public void setLayer(int layerN, NetworkLayer layer) {
         layers[layerN] = layer;
-        layer.initialize(this, layerN);
+        layer.setNeuralNetwork(this, layerN);
     }
     
 
@@ -62,6 +67,12 @@ public class NeuralNetwork implements Trainable {
     
     }
     
+    
+    /**
+     * Metodi päivittää neuroverkon virhegradientit suhteessa kerrosten
+     * tulosteisiin.
+     * @param targetOutput neuroverkon tavoiteltu tuloste. 
+     */
     public void updateGradients(Vector targetOutput) {
 
         updateOutputLayerGradients(targetOutput);
@@ -73,6 +84,10 @@ public class NeuralNetwork implements Trainable {
     
     }
 
+    /**
+     * Metodi päivittää neuroverkon painot yrittäen minimoida tehdyn virheen.
+     * @param learningRate oppimisnopeuteen vaikuttava parametri.
+     */
     @Override
     public void train(double learningRate) {
         for (int i = 1; i < layers.length; i++) {
@@ -80,13 +95,29 @@ public class NeuralNetwork implements Trainable {
         }
     }
 
-    
+    /**
+     * Metodi palauttaa kerrosta edeltävän kerroksen;
+     * @param layerN neuroverkon kerrosksen numero
+     * @return edellinen kerros
+     */
     public NetworkLayer getPreviousLayer(int layerN) {
         return layers[layerN - 1];
     }
+    
+    /**
+     * Metodi palauttaa kerrosta seuraavan kerroksen;
+     * @param layerN neuroverkon kerrosksen numero
+     * @return seuraava kerros
+     */
     public NetworkLayer getNextLayer(int layerN) {
         return layers[layerN + 1];
     }
+    
+    /**
+     * Metodi palauttaa neuroverkon kerroksen;
+     * @param layerN neuroverkon kerroksen numero
+     * @return seuraava kerros
+     */
     public NetworkLayer getLayer(int layerN) {
         return layers[layerN];
     }
@@ -96,7 +127,10 @@ public class NeuralNetwork implements Trainable {
     }
     
     
-    
+    /**
+     * 
+     * @param targetOutput 
+     */
     private void updateOutputLayerGradients(Vector targetOutput) {
         
         errorFunction.setParameter(targetOutput);
@@ -112,5 +146,7 @@ public class NeuralNetwork implements Trainable {
         return errorFunction;
     }
     
-    
+    public int getNumberOfLayer() {
+        return layers.length;
+    }
 }

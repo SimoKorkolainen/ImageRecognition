@@ -8,7 +8,10 @@ package imagerecognition.functions.error;
 import imagerecognition.math.Matrix;
 import imagerecognition.math.Vector;
 
-
+/**
+ * LogLossErrorFunction mittaa luokitteluvirhettä.
+ * @author Simo
+ */
 public class LogLossErrorFunction extends ErrorFunction {
 
     private static final double EPSILON = 1e-8; 
@@ -17,33 +20,51 @@ public class LogLossErrorFunction extends ErrorFunction {
     }
     
  
-
+    /**
+     * Virheen arvo pisteessä x.
+     * @param x piste
+     * @return arvo
+     */
     @Override
     public Vector value(Vector x) {
         
         return new Vector(new double[]{logloss(x)});
     }
     
-    public double logloss(Vector x) {
+    
+    private double logloss(Vector x) {
         return -Math.log(safeValue(x.dotProduct(getParameter())));
     }
     
-    public double safeValue(double x) {
+    private double safeValue(double x) {
         
         return Math.max(x, EPSILON);
     
     } 
 
+    /**
+     * Metodi palauttaa syötteen koon
+     * @return syötteen koko
+     */
     @Override
     public int inputSize() {
         return getParameter().size();
     }
 
+    /**
+     * Metodi palauttaa tulosteen koon
+     * @return syötteen koko
+     */
     @Override
     public int outputSize() {
         return 1;
     }
-
+    
+    /**
+     * Metodi palauttaa virheen Jakobiaanin pisteessä x.
+     * @param x piste 
+     * @return Jakobiaani
+     */
     @Override
     public Matrix jacobian(Vector x) {
         Matrix j = Matrix.zeros(1, inputSize());
@@ -56,6 +77,11 @@ public class LogLossErrorFunction extends ErrorFunction {
         return j;
     }
 
+    /**
+     * Metodi palauttaa 0x0 matriisin
+     * @param x piste 
+     * @return 0x0 matriisi
+     */
     @Override
     public Matrix parameterJacobian(Vector x) {
         return Matrix.zeros(0, 0);

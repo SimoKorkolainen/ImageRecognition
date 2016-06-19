@@ -79,12 +79,22 @@ public class NetworkLayer implements Trainable {
         this.errorGradient = vect;
     }
 
+    /**
+     * Metodi päivittää neuroverkon kerroksen painot.
+     * @param learningRate oppimisnopeutta säätelevä parametri
+     */
     @Override
     public void train(double learningRate) {
         function.train(learningRate);
     }
-
-    public void initialize(NeuralNetwork network, int layerNumber) {
+    
+    /**
+     * Metodi antaa kerrokselle tiedon neuroverkosta, johon kerros kuuluu.
+     * Metodi antaa kerrokselle myös tiedon kerroksen sijainnista neuroverkossa.
+     * @param network
+     * @param layerNumber 
+     */
+    public void setNeuralNetwork(NeuralNetwork network, int layerNumber) {
         function.setLayer(this);
         this.network = network;
         this.layerNumber = layerNumber;
@@ -102,7 +112,9 @@ public class NetworkLayer implements Trainable {
         return function;
     }
     
-    
+    public int getLayerSize() {
+        return function.outputSize();
+    }
     
     
 }

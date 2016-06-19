@@ -47,7 +47,7 @@ public class OnlySoftmaxLearningTest {
 
     @Test
     public void onlySoftmaxLearning() {
-        Dataset dataset = new CifarDataset(1);
+        Dataset dataset = new CifarDataset(1000, 1000);
         int[] count = new int[10];
         ClassifiedVector[] data = dataset.getTrainingData();
         for (int i = 0; i < data.length; i++) {

@@ -21,13 +21,13 @@ public class ImageRecognitionResultsVisualizer extends JPanel {
     private int height;
     private BufferedImage[] imgs;
     private CifarDataset dataset;
-    private NeuralNetwork network;
+    private UserInterface ui;
 
-    public ImageRecognitionResultsVisualizer(int width, int height, CifarDataset dataset, NeuralNetwork network) {
+    public ImageRecognitionResultsVisualizer(int width, int height, CifarDataset dataset, UserInterface ui) {
         this.width = width;
         this.height = height;
         this.dataset = dataset;
-        this.network = network;
+        this.ui = ui;
         this.imgs = dataset.getImages();
         update();
     }
@@ -39,7 +39,7 @@ public class ImageRecognitionResultsVisualizer extends JPanel {
         super.setLayout(new GridLayout(height, width));
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                addRecognitionResultsPanel(i * height + j, dataset, network);
+                addRecognitionResultsPanel(i * height + j, dataset, ui.getNetwork());
 
             }
         }

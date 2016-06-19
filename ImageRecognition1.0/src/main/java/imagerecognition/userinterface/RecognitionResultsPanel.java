@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import javafx.scene.layout.Border;
 import javax.swing.BorderFactory;
@@ -36,8 +37,9 @@ public class RecognitionResultsPanel extends JPanel {
         GridBagConstraints constraints = new GridBagConstraints();
         
         constraints.anchor = GridBagConstraints.CENTER;
-        constraints.ipadx = 30;
-        
+        constraints.ipadx = 10;
+        constraints.ipady = 10;
+        constraints.insets = new Insets(5, 5, 5, 5);
         
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -57,7 +59,7 @@ public class RecognitionResultsPanel extends JPanel {
         }
         
         constraints.gridx = 1;
-        constraints.weightx = 3;
+        constraints.weightx = 6;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.anchor = GridBagConstraints.EAST;
         

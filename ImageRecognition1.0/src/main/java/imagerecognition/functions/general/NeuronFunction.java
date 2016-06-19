@@ -20,22 +20,36 @@ import imagerecognition.functions.activation.ActivationFunction;
 public class NeuronFunction extends ParametricFunction {
     private Matrix jacobianMemory;
     private ActivationFunction activation;
+    
+    /**
+     * Konstruktori luo neuronia kuvaavan funktion.
+     * @param activation neuronin aktivaatiofunktion
+     * @param weigthRandomness neuronin painojen valinnan satunnaisuus
+     * @param inputSize syötteen koko (yleensä edeltävän kerroksen koko)
+     */
     public NeuronFunction(ActivationFunction activation, double weigthRandomness, int inputSize) {
         
         this.activation = activation;
         
-        Vector p = new Vector(ArrayUtil.random(-weigthRandomness, weigthRandomness, inputSize));
+        Vector p = new Vector(ArrayUtil.random(-weigthRandomness / inputSize, weigthRandomness / inputSize, inputSize));
 
         super.setParameter(p);
         
         jacobianMemory = Matrix.zeros(1, inputSize());
     }
     
-    public NeuronFunction(ActivationFunction activation, Vector weights) {
+    /**
+     * Metodi luo neuronia kuvaavan funktion,
+     * jonka tulosteena on syöteen pistetulo painovektorin kanssa operoituna
+     * aktivaatiofunktiolla.
+     * @param activation aktivaatiofunktio
+     * @param weight painovektori
+     */
+    public NeuronFunction(ActivationFunction activation, Vector weight) {
         
         this.activation = activation;
         
-        super.setParameter(weights);
+        super.setParameter(weight);
         
         jacobianMemory = Matrix.zeros(1, inputSize());
     }

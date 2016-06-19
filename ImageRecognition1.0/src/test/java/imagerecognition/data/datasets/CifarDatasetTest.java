@@ -36,7 +36,7 @@ public class CifarDatasetTest {
     
     @Before
     public void setUp() {
-        dataset = new CifarDataset(1);
+        dataset = new CifarDataset(10, 10);
     }
     
     @Test

@@ -9,9 +9,11 @@ import imagerecognition.data.classification.ClassTable;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -31,7 +33,9 @@ public class PredictionPanel extends JPanel {
         this.probability = probability;
         this.name = name;
         JLabel nameLabel = new JLabel(name);
+        nameLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
         nameLabel.setOpaque(false);
+        nameLabel.setFont(new Font("Sans serif", Font.PLAIN, 15));
         super.setOpaque(false);
         super.add(nameLabel);
     }
@@ -40,17 +44,23 @@ public class PredictionPanel extends JPanel {
     public void paintComponent(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
-
+        
+        RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.addRenderingHints(hints);
+        
         Rectangle bounds = super.getBounds();
         int startX = 0;
-        int startY = 1;
+        int startY = 0;
         
-        int w = (int) (probability * 200);
-        int h = bounds.height - 2;
+        int w = (int) (probability * bounds.width);
+        int h = bounds.height - 1;
         
         g2d.setColor(myColor());
         
         g2d.fillRect(startX, startY, w, h);
+        
+        g2d.setColor(new Color(150, 150, 150));
+        g2d.drawRect(0, 0, bounds.width - 1, bounds.height - 1);
         super.paintComponent(g);
     }
     

@@ -66,6 +66,10 @@ public class NetworkTrainer {
             train(data.getTrainingData(), learningRate / (i + 1), printInfo);
         }
     }
+
+    public void setNetwork(NeuralNetwork network) {
+        this.network = network;
+    }
     
     
     

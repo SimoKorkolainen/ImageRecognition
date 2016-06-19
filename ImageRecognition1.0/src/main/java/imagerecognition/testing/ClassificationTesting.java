@@ -6,24 +6,29 @@
 package imagerecognition.testing;
 
 import imagerecognition.data.classification.ClassifiedVector;
-import imagerecognition.data.datasets.CifarDataset;
-import imagerecognition.data.datasets.Dataset;
 import imagerecognition.math.Vector;
 import imagerecognition.neuralnetwork.NeuralNetwork;
-import imagerecognition.training.NetworkTrainer;
 
 /**
- *
- * @author Simo
+ * ClassificationTesting on luokittelun tuloksen laskemiseen käytettävä luokka.
  */
 public class ClassificationTesting {
     
     private NeuralNetwork network;
-
+    /**
+     * Konstruktori luo luokittelijaolion
+     * @param network luokiteltavia tulosteita antava neuroverkko
+     */
     public ClassificationTesting(NeuralNetwork network) {
         this.network = network;
     }
    
+    /**
+     * Metodi palauttaa testidatan luokittelutuloksena oikein
+     * luokiteltujen luokkien osuuden.
+     * @param testingData testidata
+     * @return luokittelutulos
+     */
     public double testScore(ClassifiedVector[] testingData) {
         double correct = 0;
         
@@ -36,7 +41,7 @@ public class ClassificationTesting {
         return correct / testingData.length;
     }
     
-    public boolean classificationIsCorrect(ClassifiedVector vector) {
+    private boolean classificationIsCorrect(ClassifiedVector vector) {
         
         Vector out = network.updateValues(vector);
         
@@ -49,6 +54,9 @@ public class ClassificationTesting {
         }
         return maxInd == vector.getPointClass();
     }
+    
+
+    
     
     
     

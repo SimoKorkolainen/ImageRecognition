@@ -79,8 +79,13 @@ public class Matrix {
         return result;
     }
     
-    
-     public void productToDestination(Matrix other, Matrix destMatrix) {
+    /**
+     * Metodi laskee matriisin this ja matriisin other tulon
+     * ja tallentaa sen matriisiin destMatrix
+     * @param other toinen matriisi
+     * @param destMatrix tulomatriisi
+     */
+    public void productToDestination(Matrix other, Matrix destMatrix) {
 
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < other.getCols(); j++) {
@@ -253,6 +258,10 @@ public class Matrix {
     
     
     }
+    
+    /**
+     * Metodi tulostaa matriisin.
+     */
     public void print() {
         
         for (int i = 0; i < getRows(); i++) {

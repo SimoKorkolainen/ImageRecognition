@@ -48,7 +48,7 @@ public class ClassificationTestingTest {
     public void setUpCifarWithOnlySoftmax() {
         network = NeuralNetworkBuilder.onlySoftmax(32 * 32 * 3, 10, 0.1);
         
-        dataset = new CifarDataset(1);
+        dataset = new CifarDataset(200, 200);
         
         trainer = new NetworkTrainer(network);
         

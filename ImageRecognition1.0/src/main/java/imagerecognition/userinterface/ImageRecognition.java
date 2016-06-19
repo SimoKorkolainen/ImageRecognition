@@ -6,12 +6,12 @@
 package imagerecognition.userinterface;
 
 import imagerecognition.data.datasets.CifarDataset;
-import imagerecognition.data.datasets.Dataset;
 import imagerecognition.neuralnetwork.NeuralNetwork;
 import imagerecognition.neuralnetwork.NeuralNetworkBuilder;
 import imagerecognition.testing.ClassificationTesting;
 import imagerecognition.training.NetworkTrainer;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
@@ -23,31 +23,45 @@ public class ImageRecognition {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        NeuralNetwork network = NeuralNetworkBuilder.softplusAndSoftmax(32 * 32 * 3, 40, 10, 0.0001);
+
         
-        CifarDataset dataset = new CifarDataset(1);
+        NeuralNetwork network = NeuralNetworkBuilder.softplusAndSoftmax(32 * 32 * 3, 15, 10, 1.0);
+        
+        CifarDataset dataset = new CifarDataset(1000, 1000);
         
         UserInterface ui = new UserInterface(network, dataset);
         SwingUtilities.invokeLater(ui);
 
+        
+        /*
         NetworkTrainer trainer = new NetworkTrainer(network);
         
-        ClassificationTesting testing = new ClassificationTesting(network);
-        
-        int times = 100;
+        ClassificationTesting testing;
+        double oldScore = 0;
+        double learningRate = 0.00000001;
+        int times = 500;
         for (int i = 0; i < times; i++) {
-            
+            trainer.setNetwork(ui.getNetwork());
+            testing = new ClassificationTesting(ui.getNetwork());
             ui.update();
             
-            double learningRate = 0.00001 / (i + 1);
 
-            trainer.trainWithDataset(dataset, 1, learningRate, true);
+            trainer.trainWithDataset(dataset, 1, learningRate / (i + 1), true);
             System.out.println("-------training score---------");
-            System.out.println(testing.testScore(dataset.getTrainingData()));
+            double score = testing.testScore(dataset.getTrainingData());
+            System.out.println(score);
             System.out.println("---------testing score---------");
             System.out.println(testing.testScore(dataset.getTestingData()));
             
+            if (score >= oldScore) {
+                learningRate *= 1.1;
+            } else {
+                learningRate /= 1.1;
+            }
+            System.out.println("----------learning rate-------------");
+            System.out.println(learningRate);
         }
+        */
     }
     
 }

@@ -48,6 +48,14 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
         this.gradientTransposeMemory = Matrix.zeros(inputSize(), 1);
     }
     
+    
+    /**
+     * Metodi luo neuroverkon kerrosta kuvaavan funktion,
+     * jonka tulosteena on syöteen pistetulot painovektorien kanssa operoituna
+     * aktivaatiofunktiolla.
+     * @param function aktivaatiofunktio
+     * @param weights painot taulukossa
+     */
     public NeuronLayerFunction(ActivationFunction function, Vector[] weights) {
         int outputSize = weights.length;
         this.functions = new NeuronFunction[outputSize]; 
@@ -126,6 +134,11 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
         return functions.length;
     }
 
+    
+    /**
+     * Metodi päivittää funktion komponenttifunktioiden painot.
+     * @param learningRate oppimisnopeutta säätelevä parametri
+     */
     @Override
     public void train(double learningRate) {
         for (int i = 0; i < outputSize(); i++) {
@@ -135,8 +148,8 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
         }
     }
     
-    
-    public void trainFunction(int i, double learningRate) {
+
+    protected void trainFunction(int i, double learningRate) {
     
         Matrix outputErrorGradient = layer.getOutputErrorGradient();
         
@@ -148,7 +161,6 @@ public class NeuronLayerFunction extends VectorFunction implements Differentiabl
         
         NeuronFunction function = functions[i];
         
-
         
         Matrix jacob = function.parameterJacobian(input);
         

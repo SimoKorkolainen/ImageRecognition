@@ -22,10 +22,10 @@ public class FunctionMaker {
      * @return nimeä vastaava funktio
      */
     public static ActivationFunction make(String functionName) {
-        switch (functionName) {
-            case "Softplus": return new SoftplusFunction();
-            case "Sigmoid": return new SigmoidFunction();
-            case "Exponential": return new ExponentialFunction();
+        switch (functionName.toLowerCase()) {
+            case "softplus": return new SoftplusFunction();
+            case "sigmoid": return new SigmoidFunction();
+            case "exponential": return new ExponentialFunction();
             default: return new IdentityFunction();
         }
     }

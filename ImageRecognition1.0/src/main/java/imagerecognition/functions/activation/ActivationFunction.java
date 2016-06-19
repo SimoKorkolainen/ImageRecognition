@@ -23,6 +23,11 @@ public abstract class ActivationFunction implements SimpleDifferentiable {
         this.name = name;
     }
     
+    /**
+     * Metodi palauttaa funktion arvon pisteessä x.
+     * @param x piste
+     * @return arvo
+     */
     public abstract double value(double x);
     
     public String getName() {

@@ -9,11 +9,15 @@ import imagerecognition.functions.activation.SimpleDifferentiable;
 import imagerecognition.functions.differentiation.Differentiable;
 import imagerecognition.functions.general.ParametricFunction;
 import imagerecognition.functions.general.VectorFunction;
+import imagerecognition.math.Vector;
 
 /**
  *
- * @author Simo
+ * ErrorFunction on virheen mittaamiseen käytettävä funktio
  */
 public abstract class ErrorFunction extends ParametricFunction implements Differentiable {
+    
+   
+    
     
 }

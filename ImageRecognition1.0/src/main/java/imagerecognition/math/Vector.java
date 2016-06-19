@@ -126,11 +126,21 @@ public class Vector extends Matrix {
     public static Vector zero(int n) {
         return new Vector(Matrix.zeros(n, 1).asArray());
     }
-    
+    /**
+     * Metodi laskee kahden vektorien this ja other summan. 
+     * @param other toinen vektori
+     * @return summavektori
+     */
     public Vector plus(Vector other) {
         return new Vector(super.plus(other).asArray());
     }
-    
+    /**
+     * Metodi palautaa standardikannan vektorin e_n avaruudesta R^size.
+     * Esim. e_2 = (0, 1, 0), kun size = 3.
+     * @param n kantavektorin numero
+     * @param size avaruuden koko
+     * @return kantavektori
+     */
     public static Vector standardBasisVector(int n, int size) {
         Vector vect = Vector.zero(size);
         vect.set(n - 1, 1);

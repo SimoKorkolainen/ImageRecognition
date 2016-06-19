@@ -6,4 +6,3 @@ Huomasin, että koodissani luotiin matriiseja turhan usein, mikä hidasti ohjelm
 
 Dokumentaatiosta en ole aivan varma mitä kaikkea testejä testausdokumenttiin tulisi sisällyttää. Esim. pitääkö noista PIT-raportin testeistä selitää jotain? Enkä myöskään varma testausdokumentaation halutusta tarkuudesta.
 
-Tällä viikolla jäi vähän harmittamaan, ettei kukaan tehnyt hartaasti odottamaani koodikatselmointia. Toivottavasti seuraavalla viikolla edes joku tekisi koodikatselmoinnin. Sitä odotellessani seuraavalla viikolla aion räpeltää kaikkea mitä ehdin tehdä. 

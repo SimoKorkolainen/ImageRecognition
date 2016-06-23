@@ -29,12 +29,14 @@ public class ImageRecognitionResultsVisualizer extends JPanel {
         this.dataset = dataset;
         this.ui = ui;
         this.imgs = dataset.getImages();
+        this.setDoubleBuffered(true);
         update();
     }
 
 
     
     public void update() {
+
         super.removeAll();
         super.setLayout(new GridLayout(height, width));
         for (int i = 0; i < width; i++) {
@@ -43,6 +45,8 @@ public class ImageRecognitionResultsVisualizer extends JPanel {
 
             }
         }
+        super.revalidate();
+        super.repaint();
     }
     
     private void addRecognitionResultsPanel(int i, CifarDataset dataset, NeuralNetwork network) {

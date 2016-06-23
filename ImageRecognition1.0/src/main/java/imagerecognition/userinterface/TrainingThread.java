@@ -29,9 +29,14 @@ public class TrainingThread extends Thread {
     
     @Override
     public void run() {
+        try {
+                Thread.sleep(500);
+        } catch (Exception e){}
         ClassificationTesting testing;
         double oldScore = 0;
         while (iterationsLeft > 0) {
+
+            
             trainer = new NetworkTrainer(ui.getNetwork());
 
             testing = new ClassificationTesting(ui.getNetwork());

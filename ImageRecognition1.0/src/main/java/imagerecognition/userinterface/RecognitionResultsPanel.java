@@ -33,7 +33,7 @@ public class RecognitionResultsPanel extends JPanel {
         this.image = image;
         super.setBorder(BorderFactory.createLineBorder(Color.gray));
         super.setLayout(new GridBagLayout());
-        
+        super.setDoubleBuffered(true);
         GridBagConstraints constraints = new GridBagConstraints();
         
         constraints.anchor = GridBagConstraints.CENTER;

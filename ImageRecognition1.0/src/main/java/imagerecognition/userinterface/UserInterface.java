@@ -31,6 +31,7 @@ public class UserInterface implements Runnable {
     public UserInterface(NeuralNetwork network, CifarDataset dataset) {
         this.network = network;
         this.dataset = dataset;
+        
     }
     
     
@@ -68,6 +69,7 @@ public class UserInterface implements Runnable {
     public void createComponents(Container container) {
         container.setLayout(new GridLayout(1, 2));
         viz = new ImageRecognitionResultsVisualizer(2, 2, dataset, this);
+        viz.setDoubleBuffered(true);
         container.add(viz);
         
         JPanel grid = new JPanel();

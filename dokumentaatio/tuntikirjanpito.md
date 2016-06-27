@@ -18,3 +18,7 @@ Päivä | Tunnit | Kuvaus
 14.6 | 3h | Käyttöliittymän koodaus
 18.6 | 8h | Käyttöliittymän koodaus ja koodin kommentointi
 19.6 | 8h | Käyttöliittymän koodaus ja vertaisarviointi
+23.6 | 4h | Demotilaisuus ja demotilaisuuteen valmistautuminen.
+25.6 | 4h | Dokumentaation kirjoitus
+26.6 | 10h | Dokumentaation kirjoitus ja dokumentointiin liittyvä koodaus
+27.6 | 2h | Dokumentaation kirjoitus

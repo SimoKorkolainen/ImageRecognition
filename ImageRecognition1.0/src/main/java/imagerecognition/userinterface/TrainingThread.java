@@ -6,8 +6,8 @@
 package imagerecognition.userinterface;
 
 import imagerecognition.neuralnetwork.NeuralNetwork;
-import imagerecognition.testing.ClassificationTesting;
-import imagerecognition.training.NetworkTrainer;
+import imagerecognition.neuralnetwork.training.ClassificationTesting;
+import imagerecognition.neuralnetwork.training.NetworkTrainer;
 
 /**
  *
@@ -29,21 +29,37 @@ public class TrainingThread extends Thread {
     
     @Override
     public void run() {
-        try {
-                Thread.sleep(500);
-        } catch (Exception e){}
+        
+        NeuralNetwork net = ui.getNetwork();
+        
+
+
+
+        
         ClassificationTesting testing;
-        double oldScore = 0;
+
         while (iterationsLeft > 0) {
+            try {
+                Thread.sleep(300);
+            } catch (Exception e) {}
+            trainer = new NetworkTrainer(net);
 
-            
-            trainer = new NetworkTrainer(ui.getNetwork());
-
-            testing = new ClassificationTesting(ui.getNetwork());
+            testing = new ClassificationTesting(net);
             ui.update();
             
+            
+            while (net.isInUse()) {
+                try {
+                    Thread.sleep(100);
+                } catch (Exception e) {}
 
+                System.out.println("Waiting...");
+            }
+            net.setInUse(true);
             trainer.trainWithDataset(ui.getDataset(), 1, learningRate, true);
+            
+            net.setInUse(false);
+            
             System.out.println("-------training score---------");
             double trainingScore = testing.testScore(ui.getDataset().getTrainingData());
             
@@ -64,7 +80,7 @@ public class TrainingThread extends Thread {
             System.out.println("----------learning rate-------------");
             System.out.println(learningRate);
         } 
-    
+        net.setInUse(false);
     }
     
     public void stopTraining() {

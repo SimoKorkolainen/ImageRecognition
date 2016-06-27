@@ -6,6 +6,7 @@
 package imagerecognition.userinterface;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
@@ -28,7 +29,7 @@ public class TrainingPanel extends JPanel {
         super.setBorder(BorderFactory.createLineBorder(Color.gray));
         super.setLayout(new GridLayout(2, 1));
         JLabel title = new JLabel("Network training");
-        title.setFont(new Font("Sans serif", Font.PLAIN, 30));
+        title.setFont(new Font("Sans serif", Font.PLAIN, 20));
         super.add(title);
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(4, 2));
@@ -101,4 +102,5 @@ public class TrainingPanel extends JPanel {
         }
     
     }
+   
 }

@@ -6,15 +6,15 @@
 
 package imagerecognition.neuralnetwork;
 
-import imagerecognition.functions.general.NeuronLayerFunction;
-import imagerecognition.functions.general.SoftmaxFunction;
-import imagerecognition.functions.activation.SigmoidFunction;
-import imagerecognition.functions.activation.SoftplusFunction;
-import imagerecognition.functions.error.ErrorFunction;
-import imagerecognition.functions.error.QuadraticErrorFunction;
-import imagerecognition.math.Matrix;
-import imagerecognition.math.Vector;
+import imagerecognition.neuralnetwork.layers.SoftmaxFunction;
 import imagerecognition.neuralnetwork.layers.NetworkLayer;
+import imagerecognition.neuralnetwork.layers.NeuronLayerFunction;
+import imagerecognition.neuralnetwork.activation.SigmoidFunction;
+import imagerecognition.neuralnetwork.activation.SoftplusFunction;
+import imagerecognition.neuralnetwork.training.ErrorFunction;
+import imagerecognition.neuralnetwork.training.QuadraticErrorFunction;
+import imagerecognition.util.Matrix;
+import imagerecognition.util.Vector;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;

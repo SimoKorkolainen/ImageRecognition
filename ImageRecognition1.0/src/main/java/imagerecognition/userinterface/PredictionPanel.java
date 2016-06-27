@@ -5,7 +5,7 @@
  */
 package imagerecognition.userinterface;
 
-import imagerecognition.data.classification.ClassTable;
+import imagerecognition.data.ClassTable;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;

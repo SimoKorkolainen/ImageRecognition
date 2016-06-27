@@ -5,6 +5,7 @@
  */
 package imagerecognition.userinterface;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -37,5 +38,6 @@ public class NetworkSettingsPanel extends JPanel {
         return training;
     }
     
+
     
 }

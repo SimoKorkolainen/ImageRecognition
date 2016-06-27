@@ -5,7 +5,7 @@
  */
 package imagerecognition.userinterface;
 
-import imagerecognition.functions.activation.ActivationFunction;
+import imagerecognition.neuralnetwork.activation.ActivationFunction;
 import imagerecognition.neuralnetwork.NeuralNetwork;
 import imagerecognition.neuralnetwork.NeuralNetworkBuilder;
 import java.awt.event.ActionEvent;

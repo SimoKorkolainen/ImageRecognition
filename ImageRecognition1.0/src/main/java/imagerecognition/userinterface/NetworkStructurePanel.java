@@ -5,8 +5,8 @@
  */
 package imagerecognition.userinterface;
 
-import imagerecognition.functions.activation.ActivationFunction;
-import imagerecognition.functions.activation.FunctionMaker;
+import imagerecognition.neuralnetwork.activation.ActivationFunction;
+import imagerecognition.neuralnetwork.activation.FunctionMaker;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -27,7 +27,7 @@ public class NetworkStructurePanel extends JPanel {
         super.setBorder(BorderFactory.createLineBorder(Color.gray));
         super.setLayout(new GridLayout(2, 1));
         JLabel title = new JLabel("Network structure");
-        title.setFont(new Font("Sans serif", Font.PLAIN, 30));
+        title.setFont(new Font("Sans serif", Font.PLAIN, 20));
         super.add(title);
         this.activation = new JTextField();
         this.hiddenLayers = new JTextField();

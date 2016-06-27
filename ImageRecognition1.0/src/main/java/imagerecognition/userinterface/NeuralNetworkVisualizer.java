@@ -5,7 +5,7 @@
  */
 package imagerecognition.userinterface;
 
-import imagerecognition.data.classification.ClassifiedVector;
+import imagerecognition.data.ClassifiedVector;
 import imagerecognition.neuralnetwork.NeuralNetwork;
 import imagerecognition.neuralnetwork.layers.NetworkLayer;
 import java.awt.Color;

@@ -26,10 +26,14 @@ public class GraphPlotter extends JPanel {
     
     private MovingGraph first;
     private MovingGraph second;
+    private String firstText;
+    private String secondText;
+    
     private int padding;
-    public GraphPlotter(MovingGraph first, MovingGraph second) {
+    public GraphPlotter(MovingGraph first, MovingGraph second, String firstText, String secondText) {
         super.setBorder(BorderFactory.createLineBorder(Color.gray));
-        
+        this.firstText = firstText;
+        this.secondText = secondText;
         this.first = first;
         this.second = second;
         this.padding = 10;
@@ -44,11 +48,16 @@ public class GraphPlotter extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.addRenderingHints(hints);
+        g2d.setFont(new Font("Sans serif", Font.PLAIN, 20));
         g2d.setStroke(new BasicStroke(3));
         g2d.setColor(new Color(50, 50, 255));
         paintGraph(first, g2d);
+        g2d.drawString(firstText, 40, 20);
+        
         g2d.setColor(new Color(255, 255, 50));
         paintGraph(second, g2d);
+        g2d.drawString(secondText, 40, 40);
+        
         
         paintYAxel(g2d);
         paintXAxel(g2d);

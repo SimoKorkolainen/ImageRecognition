@@ -5,12 +5,12 @@
  */
 package imagerecognition.neuralnetwork;
 
-import imagerecognition.functions.activation.ActivationFunction;
-import imagerecognition.functions.activation.SoftplusFunction;
-import imagerecognition.functions.error.LogLossErrorFunction;
-import imagerecognition.functions.general.NeuronLayerFunction;
-import imagerecognition.functions.general.SoftmaxFunction;
 import imagerecognition.neuralnetwork.layers.NetworkLayer;
+import imagerecognition.neuralnetwork.layers.NeuronLayerFunction;
+import imagerecognition.neuralnetwork.layers.SoftmaxFunction;
+import imagerecognition.neuralnetwork.activation.ActivationFunction;
+import imagerecognition.neuralnetwork.activation.SoftplusFunction;
+import imagerecognition.neuralnetwork.training.LogLossErrorFunction;
 
 /**
  *

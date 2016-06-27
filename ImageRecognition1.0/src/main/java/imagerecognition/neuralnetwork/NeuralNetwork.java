@@ -5,11 +5,11 @@
  */
 package imagerecognition.neuralnetwork;
 
-import imagerecognition.functions.error.ErrorFunction;
-import imagerecognition.math.Matrix;
-import imagerecognition.math.Vector;
 import imagerecognition.neuralnetwork.layers.NetworkLayer;
-import imagerecognition.training.Trainable;
+import imagerecognition.neuralnetwork.training.ErrorFunction;
+import imagerecognition.util.Matrix;
+import imagerecognition.util.Vector;
+import imagerecognition.neuralnetwork.training.Trainable;
 
 /**
  *
@@ -18,6 +18,7 @@ import imagerecognition.training.Trainable;
 public class NeuralNetwork implements Trainable {
     private ErrorFunction errorFunction;
     private NetworkLayer[] layers;
+    private boolean inUse = true;
 
     /**
      * Konstruktori luo neuroverkon ilman alustettuja kerroksia.
@@ -27,6 +28,7 @@ public class NeuralNetwork implements Trainable {
     public NeuralNetwork(int layerN, int inputLayerSize) {
         layers = new NetworkLayer[layerN];
         layers[0] = new NetworkLayer(inputLayerSize); //The first layer is the input layer
+        this.inUse = false;
     }
     
     /**
@@ -149,4 +151,15 @@ public class NeuralNetwork implements Trainable {
     public int getNumberOfLayer() {
         return layers.length;
     }
+
+    public boolean isInUse() {
+        return inUse;
+    }
+
+    public void setInUse(boolean inUse) {
+        System.out.println("setting inUse: " + inUse);
+        this.inUse = inUse;
+    }
+    
+    
 }

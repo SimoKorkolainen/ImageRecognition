@@ -5,11 +5,11 @@
  */
 package imagerecognition.userinterface;
 
-import imagerecognition.data.datasets.CifarDataset;
+import imagerecognition.data.CifarDataset;
 import imagerecognition.neuralnetwork.NeuralNetwork;
 import imagerecognition.neuralnetwork.NeuralNetworkBuilder;
-import imagerecognition.testing.ClassificationTesting;
-import imagerecognition.training.NetworkTrainer;
+import imagerecognition.neuralnetwork.training.ClassificationTesting;
+import imagerecognition.neuralnetwork.training.NetworkTrainer;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 

@@ -5,11 +5,15 @@
  */
 package imagerecognition.userinterface;
 
-import imagerecognition.data.datasets.CifarDataset;
-import imagerecognition.math.Vector;
+import imagerecognition.data.CifarDataset;
+import imagerecognition.util.Vector;
 import imagerecognition.neuralnetwork.NeuralNetwork;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -36,8 +40,22 @@ public class ImageRecognitionResultsVisualizer extends JPanel {
 
     
     public void update() {
-
         super.removeAll();
+        Vector value = ui.getNetwork().getLayer(1).getValue();
+        for (int i = 0; i < value.size(); i++) {
+            if (Double.isNaN(value.get(i))) {
+                
+                
+                JLabel fail = new JLabel("Network failure! Please clear the network.");
+                fail.setFont(new Font("Sans serif", Font.PLAIN, 30));
+                fail.setBorder(BorderFactory.createLineBorder(Color.gray));
+                ui.stopTraining();
+                super.add(fail);
+                return;
+            }
+        }
+        
+        
         super.setLayout(new GridLayout(height, width));
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -45,6 +63,8 @@ public class ImageRecognitionResultsVisualizer extends JPanel {
 
             }
         }
+        
+
         super.revalidate();
         super.repaint();
     }
@@ -52,9 +72,17 @@ public class ImageRecognitionResultsVisualizer extends JPanel {
     private void addRecognitionResultsPanel(int i, CifarDataset dataset, NeuralNetwork network) {
         
         BufferedImage img = imgs[i];
-        
+        while (network.isInUse()) {
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {}
+            System.out.println("Waiting2...");
+        }
+        System.out.println("here 1");
+        network.setInUse(true);
         Vector pred = network.updateValues(dataset.getTrainingData()[i]);
-        
+        network.setInUse(false);
+        System.out.println("here 2");
         double prediction[] = new double[pred.size()];
         
         for (int j = 0; j < pred.size(); j++) {

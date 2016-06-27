@@ -6,14 +6,11 @@
 
 package imagerecognition.userinterface;
 
-import imagerecognition.data.datasets.CifarDataset;
+import imagerecognition.data.CifarDataset;
 import imagerecognition.neuralnetwork.NeuralNetwork;
 import java.awt.Container;
 import java.awt.GridLayout;
-import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -47,7 +44,7 @@ public class UserInterface implements Runnable {
         
         frame.setVisible(true);
         
-        frame.setSize(800, 800);
+        frame.setSize(1000, 800);
         
         frame.setTitle("ImageRegognition visualization");
         
@@ -57,10 +54,9 @@ public class UserInterface implements Runnable {
         
 
         frame.pack();
-
         
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        
     }
     
     
@@ -74,14 +70,16 @@ public class UserInterface implements Runnable {
         
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(3, 1));
-        
+
         trainingScore = new MovingGraph(10);
         
         testingScore = new MovingGraph(10);
+
         
-        grid.add(new GraphPlotter(trainingScore, testingScore));
+        grid.add(new GraphPlotter(trainingScore, testingScore, "Training score", "Testing score"));
         
         grid.add(new NeuralNetworkVisualizer(this, 32, 32));
+
         grid.add(new NetworkSettingsPanel(this));
         
         container.add(grid);

@@ -5,11 +5,12 @@
  */
 package imagerecognition.neuralnetwork.layers;
 
-import imagerecognition.functions.general.NeuronLayerFunction;
-import imagerecognition.math.Matrix;
-import imagerecognition.math.Vector;
+import imagerecognition.neuralnetwork.layers.NeuronLayerFunction;
+import imagerecognition.util.Matrix;
+import imagerecognition.util.Vector;
 import imagerecognition.neuralnetwork.NeuralNetwork;
-import imagerecognition.training.Trainable;
+import imagerecognition.neuralnetwork.NeuralNetwork;
+import imagerecognition.neuralnetwork.training.Trainable;
 
 /**
  *

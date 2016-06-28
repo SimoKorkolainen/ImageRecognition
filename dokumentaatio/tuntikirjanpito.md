@@ -22,3 +22,4 @@ Päivä | Tunnit | Kuvaus
 25.6 | 4h | Dokumentaation kirjoitus
 26.6 | 10h | Dokumentaation kirjoitus ja dokumentointiin liittyvä koodaus
 27.6 | 2h | Dokumentaation kirjoitus
+28.6 | 2h | Dokumentaation kirjoitus

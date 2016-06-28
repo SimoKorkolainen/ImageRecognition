@@ -1,0 +1,119 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+
+\usepackage[finnish]{babel}
+
+
+\usepackage{titling}
+\usepackage{amsmath, amssymb}
+
+\setlength{\droptitle}{-10em}   % This is your set screw
+
+\author{Simo Korkolainen}
+\title{ImageRecognition aihemäärittely}
+
+\begin{document}
+  \maketitle
+
+
+
+\title{Aihemäärittely}
+
+Projektin tarkoituksena on tehdä ohjelma, joka opettaa neuroverkon tunnistamaan kuvia backpropagation-algoritmin avulla. Neuroverkon opetuksessa verkon painoja muutetaan liikuttamalla niitä virhefunktion gradientin vastaiseen suuntaan, kunnes virhefunktio on minimoitunut ja neuroverkko on oppinut tunnistamaan kuvat. Derivoinnin ketjusääntöön perustuva backpropagation-algoritmi mahdollistaa gradientin nopean laskemisen. Ohjelman toiminnasta on kirjoitetu tarkemmin toteutusdokumenttiin.
+
+Ohjelman käyttämät kuvat ovat peräisin Cifar10-tietokannasta. Cifar10-tietokanta koostuu $32\times 32 \times 3$-värikuvista. Kuvien korkeus ja leveys ovat 32 pikseliä. Kuvissa on kolme värikanavaa, punainen, sininen ja vihreä. Kuvat on luokiteltu kymmeneen eri luokkaan eläimiä ja ajoneuvoja.
+
+
+\section*{Aikavaativuus}
+
+Neuroverkoon liittyvät aikavaativuudet riippuvat paljon neuroverkon rakenteesta
+Ohjelmassa käytetään vain eteenpäin kytkettyjä neuroverkkoja. Neuroneiden aktivaatio $z_k$ kerroksessa k lasketaan täsmälleen edellisen kerroksen aktivaatioiden perusteella eli $z_k = f(z_{k - 1}, a_k)$ missä $f$ on aktivaatiofunktio. Olkoon $L$ neuroverkon kerroksien lukumäärä ja olkoon $l_k$ kerroksen $k = 1, ..., L$ neuronien lukumäärä. Jos jokainen kerroksen k neuroni on kytketty kaikkiin edellisen kerroksen solmuihin ja neuronipariin liittyvän laskennan aikavaativuus on luokkaa $O(1)$, yhden kerroksen k neuronin aktivaation laskemisen aikavaativuus on luokkaa $O(l_{k - 1})$. Koska kerroksessa $k$ on $l_k$ neuronia, koko kerrokseen liittyvän laskennan aikavaativuus on $O(l_{k - 1} l_k)$. Ensimmäisen kerroksen eli syötekerroksen aktivaatioden asettamisen aikavaativuus on $O(l_1)$.
+
+Koko neuroverkon aktivaatioden laskennan aikavaativuus $T_{act}$ on kerrosten aikavaativuuksien summa eli
+
+\begin{equation*}
+T_{act} = O(l_1  + \sum_{k = 2}^{L}l_{k-1} l_k)
+\end{equation*}
+
+Tarkastellaan tapausta, jossa kerrosten neuronien lukumäärä pienee eksponentiaalisesti eli $l_k = \alpha ^ {k - 1} l_1$, missä $0 < \alpha < 1$.
+Tällöin 
+
+\begin{equation*}
+\begin{aligned} 
+l_1  + \sum_{k = 2}^{L}l_{k-1} l_k &= l_1  + \sum_{k = 2}^{L}\alpha^{k-2} l_1 \alpha^{k - 1} l_0 \\
+&= l_1 + l_1^2\sum_{k = 2}^{L}\alpha^{2k-3} \\
+&= l_1 + l_1^2\alpha\sum_{k = 0}^{L - 2}(\alpha^2)^{k} \\
+&\leq l_1 + l_1^2\alpha\sum_{k = 0}^{\infty}(\alpha^2)^{k} \\
+&= l_1 + l_1^2\frac{\alpha}{1 - \alpha^2} \\
+\end{aligned}
+\end{equation*}
+
+Saamme, että $T_{act} = O(l_1^2)$, koska $\frac{\alpha}{1 - \alpha^2}$ on positiivinen vakio.
+
+
+Tarkastellaan seuraavaksi Backpropagation-algoritmin aikavaativuutta. Backpropagation-algoritmin pseudokoodi on esiteltynä toteutusdokumentissa.
+
+Vaikka takaisinvirtaus vaikuttaa vaikeammalta, soittautuu, että takaisinvirtausvaiheen laskenta on yhtä haastastavaa kuin eteenpäinvirtauksen laskenta.
+
+Ohjelmassa jokaiseen kerroksen $k$ neuroniin $m$ liittyy painovektori $a_{km}$ ja yksittäisen neuronin aktivaatio lasketaan tyypillisesti kaavan
+\begin{equation*}
+z_{km} = f_{km}(a_{km}^Tz_{(k - 1)m}) 
+\end{equation*}
+avulla. Tässä kuvaus $f_{km} : \mathbb{R} \to \mathbb{R} $ on neuronin aktivaatiofunktio, joka on derivoituva. Osittaisderivaatta $\frac{\partial z_{km}}{\partial z_{(k - 1)m}}$ voidaan laskea ketjusääntöä käyttäen seuraavan kaavan avulla.
+
+\begin{equation*}
+\frac{\partial z_{km}}{\partial z_{(k - 1)j}} =a_{kmj} f'_{km}(a_{km}^Tz_{(k - 1)m})
+\end{equation*}
+
+Pistetulon $a_{km}^Tz_{(k - 1)m}$ laskemisen aikavaativuus on $O(l_{k - 1})$, koska kerroksessa $k - 1$ on $l_{k - 1}$ neuronia. Nyt voisi ajatella, että vaakavektorin 
+\begin{equation*}
+\frac{\partial z_{km}}{\partial z_{(k - 1)}} =  \left[ \begin{matrix}
+\frac{\partial z_{km}}{\partial z_{(k - 1)1}} & \hdots & \frac{\partial z_{km}}{\partial z_{(k - 1)l_{k - 1}}} \\
+\end{matrix}  \right]
+\end{equation*}
+laskennan aikavaativuus olisi $O(l_{k - 1}^2)$, koska $O(l_{k - 1})$ operaatiota toistetaan $l_{k - 1}$ kertaa. Kuitenkin huomaamme, ettei skalaaria $f'_{km}(a_{km}^Tz_{(k - 1)m})$ tarvitse laskea useita kertoja. Tätä ajatusta jalostaen pätee kaava
+\begin{equation*}
+\frac{\partial z_{km}}{\partial z_{(k - 1)}} = f'_{km}(a_{km}^Tz_{(k - 1)m})a_{km}^T,
+\end{equation*} 
+jossa vektorin ja skalaarin kertolaskun aikavaativuus on $O(l_{k - 1})$. Yhteensä vektorin $\frac{\partial z_{km}}{\partial z_{(k - 1)}}$ laskemisen aikavaativuus on $O(l_{k - 1} + l_{k - 1}) = O(l_{k - 1})$.
+
+Matriisin $\frac{\partial z_{k}}{\partial z_{k - 1}} \in  \mathbb{R}^{l_{k - 1} \times l_{k}}$ laskemiseen kuluu kaikkien rivien laskemiseen tarvittavien aikojen summa, joten aikavaativuus on $O(l_{k - 1} l_{k})$.
+
+Kaikkien kerrosten matriisien $\frac{\partial z_{k}}{\partial z_{k - 1}}$ laskemisen aikavaatimus on
+\begin{equation*}
+O(\sum_{k = 2}^{L} l_{k - 1} l_{k}).
+\end{equation*}
+
+Kerroksen virhegradientin $\frac{\partial E}{\partial z_{k - 1}}$ on mahdollista laskea kaavalla 
+\begin{equation*}
+\frac{\partial E}{\partial z_{k - 1}} = \frac{\partial E}{\partial z_{k}} \frac{\partial z_{k}}{\partial z_{k - 1}}.
+\end{equation*}
+Tällöin lasketaan $1 \times l_{k - 1}$-vektorin ja $l_{k - 1} \times l_k$-matriisin tulo, jonka aikavaativuus on $O(l_{k - 1} l_k)$. Viimeisen kerroksen virhegradientti $\frac{\partial E}{\partial z_{L}}$ pitää laskea erikseen. Laskennan aikavaativuus on $O(l_L)$, koska virhegradienttin laskeminen vie vakioajan jokaista vektorin $\frac{\partial E}{\partial z_{L}}$ komponenttia kohden. Vastaavasti kaikkien kerroksien virhegradienttien $\frac{\partial E}{\partial z_{L}}$ laskemisen aikavaativuus on
+\begin{equation*}
+O(l_L + \sum_{k = 2}^{L} l_{k - 1} l_{k}) = O(\sum_{k = 2}^{L} l_{k - 1} l_{k}).
+\end{equation*}
+
+ Virhegradientin parametrivektorin $a_{km}$ suhteen pystyy laskemaan kaavalla 
+
+\begin{equation*}
+\begin{aligned}
+\frac{\partial E}{\partial a_{km}} &= \frac{\partial E}{\partial z_{km}}\frac{\partial z_{km}}{\partial a_{km}}
+ &= \frac{\partial E}{\partial z_{km}} f'_{km}(a_{km}^Tz_{(k - 1)m})z_{(k - 1)}^T.
+\end{aligned}
+\end{equation*}
+Tämän laskennan aikavaatimukseksi tulee $O(l_{k - 1})$. Kaikkien gradienttien $\frac{\partial E}{\partial a_{km}}$ laskennan aikavaativuus kerroksessa $k$ on $O(l_{k - 1} l_k)$. Koko neuroverkoon littyvien gradienttien $\frac{\partial E}{\partial a_{km}}$  laskennan aikavaativuus on
+\begin{equation*}
+O(\sum_{k = 2}^{L} l_{k - 1} l_{k}).
+\end{equation*}
+
+Edellisten päättelyiden perusteella koko takaisinvirtauksen aikavaativuus on 
+\begin{equation*}
+O(3 \sum_{k = 2}^{L} l_{k - 1} l_{k}) = O(\sum_{k = 2}^{L} l_{k - 1} l_{k}).
+\end{equation*}
+Kokonaisuudessaan yhden backpropagation-algoritmin iteraation aikavaativuus on myös $O(\sum_{k = 2}^{L} l_{k - 1} l_{k})$. Kun iteraatiota on $K$ kappaletta, aikavaativuus on yhteensä $O(K\sum_{k = 2}^{L} l_{k - 1} l_{k})$.
+
+\end{document}
+

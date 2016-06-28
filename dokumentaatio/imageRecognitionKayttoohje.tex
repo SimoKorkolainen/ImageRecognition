@@ -1,0 +1,50 @@
+\documentclass[12pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+
+\usepackage[finnish]{babel}
+\usepackage{graphicx}
+
+\usepackage{titling}
+\usepackage{amsmath, amssymb}
+
+\setlength{\droptitle}{-10em}   % This is your set screw
+
+\author{Simo Korkolainen}
+\title{ImageRecognition käyttöohje}
+
+\begin{document}
+  \maketitle
+  
+Tässä dokumentissa käsitellään ImageRecognition ohjelman käyttämistä. Kuvassa 1 näkyvä ohjelman käyttöliittymä koostuu neljästä osasta. Vasemmalla puolella näkyy kuvien luokittelutuloksia. Oikeassa yläkulmassa on graafi, joka kertoo kuinka hyvin neuroverkko luokittelee opetus- ja testidatan. Oikealla keskellä on kuva neuroverkon rakenteesta. Oikeassa alakulmassa on valikko, josta voi valita ohjelman asetuksia. Mikäli käyttäjä syöttää huonon syötteen ohjelma käyttää oletusarvoisia syötteitä. 
+
+Ohjelmassa neuroverkko luokittelee kuvia kymmeneen luokkaan. Luokkien nimet lukevat vasemmalla olevissa histogrammeissa. Histogrammi kertoo sen todennäköisyyden, millä neuroverkko ajattelee kuvan kuuluvan kuhunkin luokkaan. Oikea luokka on indikoitu vihreän värisellä palkilla. Muiden luokkien palkit on värjätty punaisella.
+
+Neuroverkon rakennetta pystyy muuttamaan kohdasta Network structure. Esimerkiksi valitsemalla piilokerroksiksi (hidden layers) 10, 5, 10 neuroverkon rakenne muuttuu kuvan 2 kaltaiseksi. Piilokerroksiin on mahdollista valita aktivaatifunktio kirjoittamalla activation function kohtaan sigmoid/softplus/identity. 
+Painamalla Create ohjelma luo uuden neuroverkon. Painamalla Clear ohjelma poistaa neuroverkon piilokerroksen.
+
+Neuroverkon oppimiseen on mahdollista vaikuttaa kohdasta Network training. Kohdasta training images voi valita käytettävien opetuskuvien määrän. Kohdasta training iterations voi valita kuinka monta iteraatiota ohjelmaa ajetaan. Jokaisen iteraation jälkeen luokitteluhistogrammit ja tulosgraafi päivittyvät. Kohdasta learning rate voi valita neuroverkon oppimisnopeuden. Hyperparametrin learning rate arvoksi tulisi valita pieni positiivinen arvo, kuten 0.000000001. Jos learning raten arvo on liian suuri voi ohjelma antaa varoituksen \textit{Network failure! Please clear the network}. Varoituksen saadessaan tulisi alustaa neuroverkko uudelleen käyttäen Create tai Clear nappia.
+
+Neuroverkon opetus aloitetaan napista Start training. Neuroverkon opetuksen voi lopettaa napista Stop. Neuroverkon ylisovittamista voi havainnollistaa painamalla ensiksi Clear ja sitten valitsemalla
+ Training images: 50,
+Training iterations: 50, ja
+learning rate: 0.000000001.
+Kun opetukseen käytettäviä kuvia on vähän, neuroverkko ylisovittaa painonsa helposti.
+
+\begin{figure}
+  \makebox[\textwidth][c]{
+\includegraphics[scale=0.5]{C:/Users/Simo/Documents/Kayttoliittyma.jpg}}
+\caption{Ohjelman käyttöliittymä}
+\end{figure}
+
+
+\begin{figure}
+  \makebox[\textwidth][c]{
+\includegraphics[scale=1]{C:/Users/Simo/Documents/verkonRakenne.jpg}}
+\caption{Neuroverkon rakenne syötteellä hidden layers: 10, 5, 10}
+\end{figure}
+
+
+\end{document}

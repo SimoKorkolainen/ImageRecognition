@@ -2,7 +2,7 @@
 
 Ohjelma, joka opettaa neuroverkon tunnistamaan kuvia backpropagation-algoritmin avulla.
 
-
+ 
 ## Dokumentaatio
 
  - [Aihemäärittely](https://docs.google.com/viewer?url=https://raw.githubusercontent.com/SimoKorkolainen/ImageRecognition/master/dokumentaatio/backpropagation.pdf)
